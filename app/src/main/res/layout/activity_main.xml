@@ -5,6 +5,7 @@
     android:id="@+id/layoutBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dday_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -29,13 +30,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/dday_button"
             android:text="To D-Day" />
 
         <ImageButton
             android:id="@+id/btnHelp"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_help" />
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/help_button" />
     </LinearLayout>
 
     <TextView
@@ -71,22 +74,33 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
-        app:backgroundTint="#000000"
+        app:backgroundTint="#FF651F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    //여우 뷰
+
     <Button
         android:id="@+id/btnOasis"
+        android:layout_width="103dp"
+        android:layout_height="70dp"
+        android:background="@drawable/airplane_oasis"
+        android:text="\n\n\nOasis"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="Oasis"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/main_ground"
+        tools:layout_editor_absoluteY="531dp" />
 
-    //여우 뷰
     <ImageButton
         android:id="@+id/fox"
         android:layout_width="130dp"
@@ -100,20 +114,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+
     //여우 말풍선 관련 뷰
+
     <ImageView
         android:id="@+id/wordBox"
-        android:layout_width="116dp"
-        android:layout_height="93dp"
+        android:layout_width="117dp"
+        android:layout_height="99dp"
         android:background="@drawable/word"
-        android:visibility="invisible"
         android:contentDescription="@string/wordBox"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintVertical_bias="0.862" />
 
     <TextView
         android:id="@+id/hi"
@@ -132,9 +148,9 @@
     //여우 애정도 관련 뷰
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="215dp"
         android:layout_height="50dp"
-        android:layout_marginTop="21dp"
         app:layout_constraintBottom_toTopOf="@+id/fox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listFragment"
@@ -169,7 +185,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:layout_marginTop="15dp"
-            android:text="@string/levelText" />
+            android:text="@string/levelText"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/levelNum"
@@ -177,14 +194,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="185dp"
             android:layout_marginTop="15dp"
+            android:textColor="#000000"
             android:text="0" />
 
         <TextView
             android:id="@+id/percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="130dp"
+            android:layout_marginStart="125dp"
             android:layout_marginTop="15dp"
+            android:textColor="#000000"
             android:text="0" />
 
     </FrameLayout>
