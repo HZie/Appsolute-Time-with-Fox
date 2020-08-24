@@ -5,7 +5,6 @@
     android:id="@+id/layoutBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dday_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -52,20 +51,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+
     <FrameLayout
         android:id="@+id/listFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="125dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="197dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd"
@@ -86,8 +86,9 @@
         android:id="@+id/btnOasis"
         android:layout_width="103dp"
         android:layout_height="70dp"
-        android:background="@drawable/airplane_oasis"
-        android:text="\n\n\nOasis"
+        android:background="@drawable/airplane_oasis_go"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/oasis_button"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />

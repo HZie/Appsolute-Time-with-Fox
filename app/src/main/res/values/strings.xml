@@ -11,9 +11,10 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="hi">안녕!</string>>
+    <string name="hi">안녕!</string>
     <string name="playground">오아시스</string>
     <string name="exit">나가기</string>
+    <string name="oasis_button">OASIS</string>
 
     <string name="fox">clickable fox</string>
     <string name="wordBox">appears when fox clicked</string>

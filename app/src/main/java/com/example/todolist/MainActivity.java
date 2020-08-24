@@ -11,9 +11,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isDDay = false;
     boolean isOasis = false;
     int currList = 0;
+    float pointX; float pointY; float oasisNum;
 
     private long backKeyPressed = 0;
 
@@ -83,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
 
         layoutBackground = binding.layoutBackground;
+
         // TODO: 사막 background로 설정
+        layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
+
 
         btnAdd = binding.btnAdd;
         btnAdd.setOnClickListener(new View.OnClickListener(){
@@ -103,12 +109,24 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(1);
                     currList = 1;
                     btnDDay.setText("To to do list");
+                    if(isOasis) {
+                        btnOasis.setText("Oasis");
+                        btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
+                        isOasis = false;
+                        layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
+                    }
                     isDDay = true;
                 }
                 else{
                     setFragment(0);
                     currList = 0;
                     btnDDay.setText("To D-Day List");
+                    if(isOasis) {
+                        btnOasis.setText("Oasis");
+                        btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
+                        isOasis = false;
+                        layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
+                    }
                     isDDay = false;
                 }
             }
@@ -117,19 +135,26 @@ public class MainActivity extends AppCompatActivity {
         btnOasis = binding.btnOasis;
         btnOasis.setText("Oasis");
         isOasis = false;
+
         btnOasis.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 if(!isOasis){
                     // TODO: 오아시스 background로 전환
                     btnOasis.setText("Go Back");
+                    btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_back));
                     isOasis = true;
+                    layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.oasis_background));
+                    oasisNum = (float)1332/(float)986;
+
                     setFragment(2);
                 }
                 else{
                     // TODO: 사막 background로 전환
                     btnOasis.setText("Oasis");
+                    btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                     isOasis = false;
+                    layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     setFragment(currList);
                 }
 
@@ -169,6 +194,14 @@ public class MainActivity extends AppCompatActivity {
         fox.setBackground(ContextCompat.getDrawable(mcontext, currentFox));
         levelUp();
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        View view = findViewById(R.id.listFragment);
+        pointX = view.getWidth();
+        pointY = view.getHeight();
+        Toast.makeText(getApplicationContext(),String.valueOf(pointX) + " " + String.valueOf(pointY),Toast.LENGTH_SHORT).show();
     }
 
     public void onBackPressed(){

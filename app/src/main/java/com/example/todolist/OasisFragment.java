@@ -3,12 +3,14 @@ package com.example.todolist;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.todolist.databinding.FragmentOasisBinding;
 import com.example.todolist.databinding.FragmentTodoBinding;
@@ -56,6 +58,12 @@ public class OasisFragment extends Fragment {
                 if (i == 5) fAngry.setVisibility(View.VISIBLE);
             }
         }
+        float oasisNum = ((MainActivity)MainActivity.mcontext).oasisNum;
+        float X = ((MainActivity)MainActivity.mcontext).pointX;
+        float Y = ((MainActivity)MainActivity.mcontext).pointY;
+        ImageView image = view.findViewById(R.id.oasis_ground);
+
+
     }
 
 }
