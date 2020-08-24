@@ -6,111 +6,122 @@
     android:layout_height="match_parent"
     android:background="@drawable/oasis_background">
 
-    <ImageButton
-        android:id="@+id/fNormal"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/fSwim"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox_swim"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        <ImageView
+            android:id="@+id/oasis_ground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/oasis_ground" />
 
-    <ImageButton
-        android:id="@+id/fSleep"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox_sleep"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        <ImageButton
+            android:id="@+id/fNormal"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.153"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.327" />
 
-    <ImageButton
-        android:id="@+id/fRed"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox_red"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        <ImageButton
+            android:id="@+id/fSwim"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox_swim"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499" />
 
-    <ImageButton
-        android:id="@+id/fPilot"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox_pilot"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316" />
+        <ImageButton
+            android:id="@+id/fSleep"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox_sleep"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.635" />
 
-    <ImageButton
-        android:id="@+id/fAngry"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@drawable/fox_angry"
-        android:contentDescription="@string/fox"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        <ImageButton
+            android:id="@+id/fRed"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox_red"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.73" />
 
-    <TextView
-        android:id="@+id/textview_third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/playground"
-        android:textSize="24sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/fPilot"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox_pilot"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.316" />
 
-    <ImageView
-        android:id="@+id/oasis_ground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/oasis_ground" />
+        <ImageButton
+            android:id="@+id/fAngry"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/fox_angry"
+            android:contentDescription="@string/fox"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.96"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.635" />
+
+        <TextView
+            android:id="@+id/textview_third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/playground"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

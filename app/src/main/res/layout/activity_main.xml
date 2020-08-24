@@ -73,11 +73,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="#FB8C00"
         android:clickable="true"
-        app:backgroundTint="#FF651F"
+        android:src="@drawable/plus_button"
+        app:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     //여우 뷰
 
@@ -93,13 +94,12 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="441dp"
+        android:layout_height="143dp"
+        android:background="@drawable/main_ground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/main_ground"
-        tools:layout_editor_absoluteY="531dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/fox"
