@@ -58,10 +58,19 @@ public class OasisFragment extends Fragment {
                 if (i == 5) fAngry.setVisibility(View.VISIBLE);
             }
         }
-        float oasisNum = ((MainActivity)MainActivity.mcontext).oasisNum;
+        float oasisNum = (float)1332/(float)986;
+        float oasisNum2 = (float)986/(float)1332;
         float X = ((MainActivity)MainActivity.mcontext).pointX;
         float Y = ((MainActivity)MainActivity.mcontext).pointY;
+        float ground_width; float ground_height;
         ImageView image = view.findViewById(R.id.oasis_ground);
+
+        if(Y/X < oasisNum) {
+            ground_width  = Y*oasisNum2;
+        }
+        else ground_height = X*oasisNum;
+
+
 
 
     }
