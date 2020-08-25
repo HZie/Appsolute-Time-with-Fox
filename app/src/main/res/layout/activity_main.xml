@@ -91,12 +91,12 @@
         android:text="@string/oasis_button"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="441dp"
-        android:layout_height="143dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:background="@drawable/main_ground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -148,44 +148,55 @@
 
     //여우 애정도 관련 뷰
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="215dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/fox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listFragment"
-        app:layout_constraintVertical_bias="0.0">
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/listFragment">
 
-        <ProgressBar
-            android:id="@+id/loveprg"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="120dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="18dp"
-            android:max="100"
-            android:progress="0"
-            android:progressDrawable="@drawable/love_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/heart"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/heart2"
-            android:contentDescription="@string/wordBox"
-            android:visibility="visible" />
+            <ProgressBar
+                android:id="@+id/loveprg"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="120dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="23dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/love_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="125dp"
+                android:text="0"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/heart"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:background="@drawable/heart2"
+                android:contentDescription="@string/wordBox" />
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/levelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="@string/levelText"
             android:textColor="#000000" />
 
@@ -193,21 +204,11 @@
             android:id="@+id/levelNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="185dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#000000"
-            android:text="0" />
-
-        <TextView
-            android:id="@+id/percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#000000"
-            android:text="0" />
-
-    </FrameLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="0"
+            android:textColor="#000000" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
