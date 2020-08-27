@@ -19,4 +19,6 @@
     <string name="fox">clickable fox</string>
     <string name="wordBox">appears when fox clicked</string>
     <string name="levelText">LV: </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

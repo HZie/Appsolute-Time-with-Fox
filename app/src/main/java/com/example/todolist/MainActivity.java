@@ -38,11 +38,14 @@ public class MainActivity extends AppCompatActivity {
     Button btnDDay;
     Switch switchShowDDay;
     Button btnOasis;
+    Button btnToOasis2;
+    Button btnToOasis1;
     ConstraintLayout layoutBackground;
 
     DDayFragment d_dayFrag;
     ToDoFragment todoFrag;
     OasisFragment oasisFrag;
+    OasisWinterFragment oasiswinterFrag;
 
     FragmentManager fm;
     FragmentTransaction ftran;
@@ -131,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnOasis = binding.btnOasis;
+        btnToOasis2 = binding.btnToOasis2;
+        btnToOasis1 = binding.btnToOasis1;
         btnOasis.setText("Oasis");
         isOasis = false;
 
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_back));
                     isOasis = true;
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.oasis_background));
-
+                    btnToOasis2.setVisibility(View.VISIBLE);
                     setFragment(2);
                 }
                 else{
@@ -152,15 +157,40 @@ public class MainActivity extends AppCompatActivity {
                     btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                     isOasis = false;
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
+                    btnToOasis2.setVisibility(View.GONE);
+                    btnToOasis1.setVisibility(View.GONE);
                     setFragment(currList);
                 }
 
             }
         });
 
+        btnToOasis2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(isOasis) {
+                    setFragment(3);
+                    btnToOasis2.setVisibility(View.GONE);
+                    btnToOasis1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        btnToOasis1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(isOasis) {
+                    setFragment(2);
+                    btnToOasis1.setVisibility(View.GONE);
+                    btnToOasis2.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
         d_dayFrag = new DDayFragment();
         todoFrag = new ToDoFragment();
         oasisFrag = new OasisFragment();
+        oasiswinterFrag = new OasisWinterFragment();
 
         setFragment(0);
         currList = 0;
@@ -228,6 +258,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 ftran.replace(R.id.listFragment, oasisFrag);
+                break;
+            case 3:
+                ftran.replace(R.id.listFragment, oasiswinterFrag);
                 break;
             default:
                 break;

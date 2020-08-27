@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/oasis_ground2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/oasis_ground2" />
+
+    <ImageButton
+        android:id="@+id/fGuitar"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_guitar"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.302"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/campFire"
+        android:layout_width="42dp"
+        android:layout_height="43dp"
+        android:background="@drawable/fire"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/fGuitar"
+        app:layout_constraintVertical_bias="0.254" />
+
+    <ImageButton
+        android:id="@+id/fFlower"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_flower"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <ImageButton
+        android:id="@+id/fRed"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_red"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.265" />
+
+    <ImageButton
+        android:id="@+id/fOwl"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_owl"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.265" />
+
+    <ImageButton
+        android:id="@+id/fWhite"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_white"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.532" />
+
+    <ImageButton
+        android:id="@+id/fSpotato"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_spotato"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.638" />
+
+    <ImageButton
+        android:id="@+id/fXmas"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_xmas"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.683" />
+
+    <ImageButton
+        android:id="@+id/fCold"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:background="@drawable/fox_cold"
+        android:contentDescription="@string/fox"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/oasis_ground2"
+        app:layout_constraintEnd_toEndOf="@+id/oasis_ground2"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/oasis_ground2"
+        app:layout_constraintTop_toTopOf="@+id/oasis_ground2"
+        app:layout_constraintVertical_bias="0.774" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
