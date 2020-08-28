@@ -5,7 +5,6 @@
     android:id="@+id/layoutBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -97,9 +96,9 @@
         app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/mainground"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:background="@drawable/main_ground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,35 +120,39 @@
 
     //여우 말풍선 관련 뷰
 
+    //여우 애정도 관련 뷰
+
     <ImageView
         android:id="@+id/wordBox"
-        android:layout_width="117dp"
-        android:layout_height="99dp"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="263dp"
         android:background="@drawable/word"
         android:contentDescription="@string/wordBox"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/fox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintTop_toTopOf="@+id/fox"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/baekboam_normalfont"
         android:text="@string/hi"
-        android:textSize="24sp"
+        android:textColor="#272727"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/wordBox"
         app:layout_constraintEnd_toEndOf="@+id/wordBox"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/wordBox"
         app:layout_constraintTop_toTopOf="@+id/wordBox"
-        app:layout_constraintVertical_bias="0.36" />
-
-    //여우 애정도 관련 뷰
+        app:layout_constraintVertical_bias="0.42" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"

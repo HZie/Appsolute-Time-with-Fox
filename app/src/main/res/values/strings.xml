@@ -11,7 +11,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="hi">안녕!</string>
     <string name="playground">오아시스</string>
     <string name="exit">나가기</string>
     <string name="oasis_button">OASIS</string>
@@ -19,6 +18,18 @@
     <string name="fox">clickable fox</string>
     <string name="wordBox">appears when fox clicked</string>
     <string name="levelText">LV: </string>
+
+    <string name="hi">반가워!</string>
+    <string name="howdud">오늘 하루는\n어땠어?</string>
+    <string name="cheerup">파이팅!</string>
+    <string name="plywthm">나랑 놀자</string>
+    <string name="udidit">해냈구나!</string>
+    <string name="thx">약속 지켜줘서\n고마워 :)</string>
+    <string name="newfox">새로운 여우가 놀러왔어요!</string>
+    <string name="suggestion">새로운 여우와\n약속을 잡고 놀면서\n친해져보세요!</string>
+    <string name="endmessage">터치하세요</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

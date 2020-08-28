@@ -1,9 +1,11 @@
 package com.example.todolist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isDDay = false;
     boolean isOasis = false;
+    boolean endnum = false;
     int currList = 0;
     float pointX; float pointY; float oasisNum;
 
@@ -69,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
     TextView percentV, levelView;
 
     int imageResources[] = {
-            R.drawable.fox_swim, R.drawable.fox, R.drawable.fox_sleep, R.drawable.fox_red, R.drawable.fox_pilot,
-            R.drawable.fox_angry,
+            R.drawable.fox_swim, R.drawable.fox, R.drawable.fox_sleep, R.drawable.fox_pilot, R.drawable.fox_angry,
+            R.drawable.fox_baby,  R.drawable.fox_lifeguard, R.drawable.fox_red, R.drawable.fox_guitar, R.drawable.fox_owl,
+            R.drawable.fox_flower, R.drawable.fox_cold, R.drawable.fox_spotato, R.drawable.fox_white, R.drawable.fox_xmas
     };
 
+    int[] stringResources = { R.string.cheerup, R.string.hi, R.string.howdud, R.string.plywthm };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     isDDay = false;
                 }
+
+
             }
         });
 
@@ -198,12 +205,13 @@ public class MainActivity extends AppCompatActivity {
         // gamify 관련 코드
         final ImageView wordbox = binding.wordBox;
         final TextView hi = binding.hi;
-        ImageButton fox = binding.fox;
+        final ImageButton fox = binding.fox;
 
         fox.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             public void onClick(View view) {
                 wordbox.setVisibility(View.VISIBLE);
+                hi.setText(stringResources[new Random().nextInt(4)]);
                 hi.setVisibility(View.VISIBLE);
 
                 Handler mHandler = new Handler();
@@ -212,15 +220,16 @@ public class MainActivity extends AppCompatActivity {
                         wordbox.setVisibility(View.INVISIBLE);
                         hi.setVisibility(View.INVISIBLE);
                     }
-                }, 3000);
+                }, 2000);
 
             }
         });
+
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         int currentFox = Log.getInt("Fox", imageResources[1]);
         fox.setBackground(ContextCompat.getDrawable(mcontext, currentFox));
         levelUp();
-
+        newfox(fox);
     }
 
     @Override
@@ -292,17 +301,16 @@ public class MainActivity extends AppCompatActivity {
         ImageButton fox = binding.fox;
 
         wordbox.setVisibility(View.VISIBLE);
-        hi.setText("축하해!");
+        hi.setText(R.string.thx);
         hi.setVisibility(View.VISIBLE);
 
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable()  {
             public void run() {
-                hi.setText("안녕!"); //5초후 다시 안녕으로 바꾸고 말풍선 안보이게
                 wordbox.setVisibility(View.INVISIBLE);
                 hi.setVisibility(View.INVISIBLE);
             }
-        }, 5000);
+        }, 2000);
     }
 
     public int[] getLog() {
@@ -333,38 +341,63 @@ public class MainActivity extends AppCompatActivity {
 
         int finishTask = Log.getInt("Finish", 0);
         finishTask++;
+
+        TextView hi = findViewById(R.id.hi);
+        hi.setText(R.string.udidit);
         editor.putInt("Finish", finishTask);
         editor.commit();
     }
 
     public void newfox(ImageButton fox) {
         int randomImage = imageResources[new Random().nextInt(imageResources.length)];
-        fox.setBackground(ContextCompat.getDrawable(mcontext, randomImage));
+
+        Intent intent = new Intent(this, NewfoxActivity.class);
+        intent.putExtra("foxnum", randomImage);
+        startActivity(intent);
+
         editor.putInt("Fox", randomImage);
         editor.commit();
+        fox.setBackground(ContextCompat.getDrawable(mcontext, randomImage));
+
+        final ImageView wordbox = binding.wordBox;
+        final TextView hi = binding.hi;
+        wordbox.setVisibility(View.VISIBLE);
+        hi.setText(stringResources[1]);
+        hi.setVisibility(View.VISIBLE);
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable()  {
+            public void run() {
+                wordbox.setVisibility(View.INVISIBLE);
+                hi.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
     }
 
     public Boolean[] getFoxLog() {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         Boolean[] arr = new Boolean[imageResources.length];
-        arr[0] = Log.getBoolean("FSwim", false);
-        arr[1] = Log.getBoolean("FNormal", false);
-        arr[2] = Log.getBoolean("FSleep", false);
-        arr[3] = Log.getBoolean("FRed", false);
-        arr[4] = Log.getBoolean("FPilot", false);
-        arr[5] = Log.getBoolean("FAngry", false);
+        arr[0] = Log.getBoolean("FSwim", false); arr[1] = Log.getBoolean("FNormal", false);
+        arr[2] = Log.getBoolean("FSleep", false); arr[3] = Log.getBoolean("FPilot", false);
+        arr[4] = Log.getBoolean("FAngry", false); arr[5] = Log.getBoolean("FBaby", false);
+        arr[6] = Log.getBoolean("FLife", false); arr[7] = Log.getBoolean("FRed", false);
+        arr[8] = Log.getBoolean("FGuitar", false); arr[9] = Log.getBoolean("FOwl", false);
+        arr[10] = Log.getBoolean("FFlower", false); arr[11] = Log.getBoolean("FCold", false);
+        arr[12] = Log.getBoolean("FPotato", false); arr[13] = Log.getBoolean("FWhite", false);
+        arr[14] = Log.getBoolean("FXmas", false);
         return arr;
     }
 
     public void setFoxLog(int i) {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
-        if(i==0) editor.putBoolean("FSwim", true);
-        if(i==1) editor.putBoolean("FNormal", true);
-        if(i==2) editor.putBoolean("FSleep", true);
-        if(i==3) editor.putBoolean("FRed", true);
-        if(i==4) editor.putBoolean("FPilot", true);
-        if(i==5) editor.putBoolean("FAngry", true);
+        if(i==0) editor.putBoolean("FSwim", true); if(i==1) editor.putBoolean("FNormal", true);
+        if(i==2) editor.putBoolean("FSleep", true); if(i==3) editor.putBoolean("FPilot", true);
+        if(i==4) editor.putBoolean("FAngry", true); if(i==5) editor.putBoolean("FBaby", true);
+        if(i==6) editor.putBoolean("FLife", true); if(i==7) editor.putBoolean("FRed", true);
+        if(i==8) editor.putBoolean("FGuitar", true); if(i==9) editor.putBoolean("FOwl", true);
+        if(i==10) editor.putBoolean("FFlower", true); if(i==11) editor.putBoolean("FCold", true);
+        if(i==12) editor.putBoolean("FPotato", true); if(i==13) editor.putBoolean("FWhite", true);
+        if(i==14) editor.putBoolean("FXmas", true);
         editor.commit();
     }
 
@@ -405,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
                         if(imageResources[i]==Log.getInt("Fox", imageResources[1])) setFoxLog(i);
                     }
                 }
-                Toast.makeText(this, "새로운 여우와 친구되기", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "새로운 여우를 만나요", Toast.LENGTH_LONG).show();
                 newfox(fox);
             }
 
