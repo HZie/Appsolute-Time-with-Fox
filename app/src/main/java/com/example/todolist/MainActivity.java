@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     isOasis = true;
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.oasis_background));
                     btnToOasis2.setVisibility(View.VISIBLE);
+                    tvDate.setTextColor(getResources().getColor(R.color.whiteText));
                     setFragment(2);
                 }
                 else{
@@ -173,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.GONE);
+                    tvDate.setTextColor(getResources().getColor(R.color.blackText));
                     setFragment(currList);
                 }
 
