@@ -18,8 +18,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fGuitar"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_guitar"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -46,8 +46,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fFlower"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_flower"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -60,8 +60,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fRed"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_red"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -74,8 +74,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fOwl"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_owl"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -88,8 +88,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fWhite"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_white"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -102,8 +102,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fSpotato"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_spotato"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -116,8 +116,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fXmas"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_xmas"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -130,8 +130,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
         android:id="@+id/fCold"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_cold"
         android:contentDescription="@string/fox"
         android:visibility="gone"

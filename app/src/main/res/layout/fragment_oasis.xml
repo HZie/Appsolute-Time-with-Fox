@@ -20,11 +20,11 @@
 
     <ImageButton
         android:id="@+id/fLifeg"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_lifeguard"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.167"
@@ -34,11 +34,11 @@
 
     <ImageButton
         android:id="@+id/fAngry"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_angry"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.733"
@@ -48,11 +48,11 @@
 
     <ImageButton
         android:id="@+id/fSwim"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_swim"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.462"
@@ -62,11 +62,11 @@
 
     <ImageButton
         android:id="@+id/fNormal"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.462"
@@ -76,11 +76,11 @@
 
     <ImageButton
         android:id="@+id/fBabay"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_baby"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.06"
@@ -90,11 +90,11 @@
 
     <ImageButton
         android:id="@+id/fPilot"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_pilot"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.804"
@@ -104,11 +104,11 @@
 
     <ImageButton
         android:id="@+id/fSleep"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_sleep"
         android:contentDescription="@string/fox"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/oasis_ground"
         app:layout_constraintEnd_toEndOf="@+id/oasis_ground"
         app:layout_constraintHorizontal_bias="0.462"
