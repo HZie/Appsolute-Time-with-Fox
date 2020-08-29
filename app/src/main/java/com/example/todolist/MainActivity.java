@@ -25,6 +25,7 @@ import com.example.todolist.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnToOasis2;
     Button btnToOasis1;
     ConstraintLayout layoutBackground;
+    TextView tvDate;
 
     DDayFragment d_dayFrag;
     ToDoFragment todoFrag;
@@ -101,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // TODO: 할 일 추가 화면 여기서 띄우기
+                // 할 일 추가 화면
+                Intent intent = new Intent(MainActivity.this, AddTodoActivity.class);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -140,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tvDate = binding.tvDate;
+        tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
+
         btnOasis = binding.btnOasis;
         btnToOasis2 = binding.btnToOasis2;
         btnToOasis1 = binding.btnToOasis1;
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     isOasis = true;
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.oasis_background));
                     btnToOasis2.setVisibility(View.VISIBLE);
+                    tvDate.setTextColor(getResources().getColor(R.color.whiteText));
                     setFragment(2);
                 }
                 else{
@@ -166,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.GONE);
+                    tvDate.setTextColor(getResources().getColor(R.color.blackText));
                     setFragment(currList);
                 }
 
@@ -194,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         d_dayFrag = new DDayFragment();
         todoFrag = new ToDoFragment();
         oasisFrag = new OasisFragment();
