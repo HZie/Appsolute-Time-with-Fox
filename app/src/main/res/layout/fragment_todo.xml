@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#83838383"
     tools:context=".ToDoFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todoRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="To Do Fragment"
-        android:textSize="30sp"
-        android:layout_gravity="center"/>
+        android:textSize="30sp" />
 </FrameLayout>

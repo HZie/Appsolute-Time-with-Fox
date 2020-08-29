@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 할 일 추가 화면 여기서 띄우기
+                Intent intent = new Intent(MainActivity.this, AddTodoActivity.class);
+                startActivityForResult(intent,1);
             }
         });
 
