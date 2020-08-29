@@ -7,16 +7,30 @@ import io.realm.RealmObject;
 public class ToDoItem extends RealmObject {
     private String date;
     private String content;
+    private boolean isImportant;
     private boolean isDDay;
-    private boolean checked;
+    private String dueDate ="";
+    private boolean checked = false;
+    private boolean isRepeat;
+    private String repeatDate = "";  // true: 1, false: 0
 
     public ToDoItem(){}
 
-    public ToDoItem(String date, String content, boolean isDDay){
+    public ToDoItem(String date, String content, boolean isImportant, boolean isRepeat, boolean isDDay){
         this.date = date;
         this.content = content;
+        this.isImportant = isImportant;
+        this.isRepeat = isRepeat;
         this.isDDay = isDDay;
         this.checked = false;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDueDate() {
+        return dueDate;
     }
 
     public void setDate(String date) {
@@ -49,5 +63,29 @@ public class ToDoItem extends RealmObject {
 
     public boolean isChecked() {
         return checked;
+    }
+
+    public void setImportant(boolean important) {
+        isImportant = important;
+    }
+
+    public void setRepeat(boolean repeat) {
+        isRepeat = repeat;
+    }
+
+    public void setRepeatDate(String repeatDate) {
+        this.repeatDate = repeatDate;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
+    }
+
+    public boolean isRepeat() {
+        return isRepeat;
+    }
+
+    public String getRepeatDate() {
+        return repeatDate;
     }
 }

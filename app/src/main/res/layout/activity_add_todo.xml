@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/addTodoTF"
+        android:id="@+id/addTodoET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -47,51 +47,57 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <ToggleButton
             android:id="@+id/importantBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/circle_btn_unchecked"
             android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="중요"
             android:textAlignment="gravity"
             android:textAllCaps="true"
             android:textColor="#000000"
+            android:textOff="중요"
+            android:textOn="중요"
             android:textSize="14sp" />
 
         <Space
             android:layout_width="5dp"
             android:layout_height="0dp" />
 
-        <TextView
+        <ToggleButton
             android:id="@+id/repeatBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/circle_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/circle_btn_unchecked"
             android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="반복"
             android:textAlignment="gravity"
             android:textAllCaps="true"
             android:textColor="#000000"
+            android:textOff="반복"
+            android:textOn="반복"
             android:textSize="14sp" />
 
         <Space
             android:layout_width="5dp"
             android:layout_height="0dp" />
 
-        <TextView
+        <ToggleButton
             android:id="@+id/dDayBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/circle_btn_unchecked"
             android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="Due"
             android:textAlignment="gravity"
             android:textAllCaps="false"
             android:textColor="#000000"
+            android:textOff="Due"
+            android:textOn="Due"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -125,7 +131,7 @@
                 android:layout_height="0dp" />
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/isEveryday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baekboam_normalfont"
@@ -137,119 +143,133 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/monBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="월"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="월"
+                android:textOn="월"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/tueBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="화"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="화"
+                android:textOn="화"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/wedBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="수"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="수"
+                android:textOn="수"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/thuBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="목"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="목"
+                android:textOn="목"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/friBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="금"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="금"
+                android:textOn="금"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/satBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="토"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="토"
+                android:textOn="토"
                 android:textSize="14sp" />
 
             <Space
                 android:layout_width="5dp"
                 android:layout_height="0dp" />
 
-            <TextView
+            <ToggleButton
                 android:id="@+id/sunBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/circle_btn_unchecked"
                 android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="일"
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textOff="일"
+                android:textOn="일"
                 android:textSize="14sp" />
 
 
@@ -273,6 +293,7 @@
             android:textColor="#000000" />
 
         <DatePicker
+            android:id="@+id/dueDP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
