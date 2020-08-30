@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/baekboam_normalfont"
         android:hint="To Do" />
 
 
@@ -52,7 +51,6 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/circle_btn_unchecked"
-            android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="중요"
             android:textAlignment="gravity"
@@ -71,7 +69,6 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/circle_btn_unchecked"
-            android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="반복"
             android:textAlignment="gravity"
@@ -90,7 +87,6 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/circle_btn_unchecked"
-            android:fontFamily="@font/baekboam_normalfont"
             android:gravity="center"
             android:text="Due"
             android:textAlignment="gravity"
@@ -122,7 +118,6 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:text="반복"
                 android:textColor="#000000" />
 
@@ -134,7 +129,6 @@
                 android:id="@+id/isEveryday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:text="매일" />
         </LinearLayout>
 
@@ -148,7 +142,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="월"
                 android:textAlignment="gravity"
@@ -167,7 +160,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="화"
                 android:textAlignment="gravity"
@@ -186,7 +178,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="수"
                 android:textAlignment="gravity"
@@ -205,7 +196,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="목"
                 android:textAlignment="gravity"
@@ -224,7 +214,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="금"
                 android:textAlignment="gravity"
@@ -243,7 +232,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="토"
                 android:textAlignment="gravity"
@@ -262,7 +250,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/circle_btn_unchecked"
-                android:fontFamily="@font/baekboam_normalfont"
                 android:gravity="center"
                 android:text="일"
                 android:textAlignment="gravity"
@@ -319,7 +306,6 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/weekBtnChecked"
-            android:fontFamily="@font/baekboam_normalfont"
             android:text="추가하기"
             android:textColor="#FFFFFF" />
     </LinearLayout>
