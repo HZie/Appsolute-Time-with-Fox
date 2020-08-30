@@ -5,6 +5,7 @@ import io.realm.RealmObject;
 // TODO: DB에 저장될 객체의 클래스 (D-Day여부: isDDay를 통해 알 수 있음)
 
 public class ToDoItem extends RealmObject {
+    private String id;
     private String date;
     private String content;
     private boolean isImportant;
@@ -16,7 +17,8 @@ public class ToDoItem extends RealmObject {
 
     public ToDoItem(){}
 
-    public ToDoItem(String date, String content, boolean isImportant, boolean isRepeat, boolean isDDay){
+    public ToDoItem(String id, String date, String content, boolean isImportant, boolean isRepeat, boolean isDDay){
+        this.id = id;
         this.date = date;
         this.content = content;
         this.isImportant = isImportant;
@@ -87,5 +89,13 @@ public class ToDoItem extends RealmObject {
 
     public String getRepeatDate() {
         return repeatDate;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }

@@ -3,6 +3,7 @@ package com.example.todolist;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class AddTodoActivity extends Activity{
@@ -41,6 +43,8 @@ public class AddTodoActivity extends Activity{
     LinearLayout repeatLayout;
     LinearLayout ddayLayout;
 
+    private String todoIDhead;
+    private String todoID;
     private String todoDate;
     private String todoContent;
     private boolean todoIsImportant;
@@ -105,7 +109,7 @@ public class AddTodoActivity extends Activity{
         setWeekListener();
 
         dueDP.setOnDateChangedListener(dpListener);
-
+        todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
     }
 
     public View.OnClickListener BtnOnClickListener = new View.OnClickListener() {
@@ -113,8 +117,11 @@ public class AddTodoActivity extends Activity{
         public void onClick(View view) {
             switch(view.getId()){
                 case R.id.saveBtn:
-                    if(addToDoItem())
+                    if(addToDoItem()){
+                        ToDoFragment tdf = new ToDoFragment();
+                        tdf.onResume();
                         finish();
+                    }
                     break;
                 case R.id.closeBtn:
                     finish();
@@ -237,8 +244,8 @@ public class AddTodoActivity extends Activity{
             else
                 todoRepeatDate += "0";
         }
-
-        todo = new ToDoItem(todoDate,todoContent, todoIsImportant,todoIsRepeat,todoIsDDay);
+        getLastID();
+        todo = new ToDoItem(todoID, todoDate,todoContent, todoIsImportant,todoIsRepeat,todoIsDDay);
         if(todoIsRepeat)
             todo.setRepeatDate(todoRepeatDate);
         if(todoIsDDay)
@@ -254,6 +261,17 @@ public class AddTodoActivity extends Activity{
         realm.copyToRealm(todo);
         realm.commitTransaction();
         realm.close();
+    }
+
+    public void getLastID(){
+        try{
+            realm = Realm.getDefaultInstance();
+            final RealmResults<ToDoItem> items = realm.where(ToDoItem.class).contains("id", todoIDhead).findAll();
+            todoID = todoIDhead + items.size();
+        }
+        catch(Exception e){
+            Log.e("error at getLastID: ",String.valueOf(e));
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event){

@@ -1,41 +1,45 @@
 package com.example.todolist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapter.ViewHolder> {
     private ArrayList<ToDoItem> mData = null;     // Todo라는 객체를 가진 ArrayList
+    Realm realm;
 
     // item View를 저장하는 뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        protected TextView textview_todo_item;
-        protected ImageButton deleteBt;
-        protected ImageButton importantBt;
+        CheckBox itemCheckBox;
+        ImageView importantBt;
 
-        public ViewHolder(View itemView){   // itemView와 연결했기 때문에 findViewById 앞에 itemView를 명시한다.
+        public ViewHolder(final View itemView){   // itemView와 연결했기 때문에 findViewById 앞에 itemView를 명시한다.
             super(itemView);
 
-            this.textview_todo_item = itemView.findViewById(R.id.textview_todo_item);
-            this.deleteBt = itemView.findViewById(R.id.deletebutton);
-            this.importantBt = itemView.findViewById(R.id.importantbutton);
+            itemCheckBox = itemView.findViewById(R.id.itemCheckbox);
+            this.importantBt = itemView.findViewById(R.id.importantBtn);
 
-            // ArrayList 삭제 버튼
-            deleteBt.setOnClickListener(new View.OnClickListener(){
+
+            // 체크박스 리스너
+            itemCheckBox.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
                     int position = getAdapterPosition();    // 현재 어뎁터가 다루고 있는 리스트의 포지션을 가져온다.
-
                     if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
-                        mData.remove(position);     // ArrayList<Todo> 타입의 리스트에서 해당 포지션의 item을 제거한다.
+                        changeChecked(mData.get(position).getId(),itemCheckBox.isChecked());
                         notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
                         int itemnum = getItemCount();
 
@@ -61,6 +65,7 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
 
         View view = inflater.inflate(R.layout.item_todo_recycler, parent, false);
         ToDoRecyclerAdapter.ViewHolder vh = new ToDoRecyclerAdapter.ViewHolder(view);
+        realm.getDefaultInstance();
 
         return vh;
     }
@@ -68,7 +73,13 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(ToDoRecyclerAdapter.ViewHolder holder, int position){
-        holder.textview_todo_item.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
+        holder.itemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
+        holder.itemCheckBox.setChecked(mData.get(position).isChecked());
+
+        if(mData.get(position).isImportant())
+            holder.importantBt.setVisibility(View.VISIBLE);
+        else
+            holder.importantBt.setVisibility(View.GONE);
         //textview_todo_item.setText("할 일"); 동일
     }
 
@@ -76,6 +87,25 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     @Override
     public int getItemCount(){
         return mData.size();
+    }
+
+    public void changeChecked(String id, boolean isChecked){
+        Log.d("id: ",id);
+        try{
+            realm = Realm.getDefaultInstance();
+            Log.d("realm:", String.valueOf(realm));
+            ToDoItem item = realm.where(ToDoItem.class)
+                    .contains("id",id)
+                    .findFirst();
+            realm.beginTransaction();
+            item.setChecked(isChecked);
+            realm.commitTransaction();
+            realm.close();
+        }
+        catch(Exception e){
+            Log.e("error at changeChecked in todo adapter:", String.valueOf(e));
+        }
+
     }
 
 
