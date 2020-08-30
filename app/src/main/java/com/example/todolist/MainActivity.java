@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isDDay = false;
     boolean isOasis = false;
-    boolean endnum = false;
     int currList = 0;
     float pointX; float pointY; float oasisNum;
 
@@ -72,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat mFormat;
     ProgressBar prgbar;
     TextView percentV, levelView;
+    boolean isFoxGet = false;
+    boolean isFinished = false;
 
     int imageResources[] = {
             R.drawable.fox_swim, R.drawable.fox, R.drawable.fox_sleep, R.drawable.fox_pilot, R.drawable.fox_angry,
@@ -238,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         int currentFox = Log.getInt("Fox", imageResources[1]);
         fox.setBackground(ContextCompat.getDrawable(mcontext, currentFox));
+        //editor = Log.edit(); editor.putInt("Date", 20200827); editor.commit();
         levelUp();
-        newfox(fox);
     }
 
     @Override
@@ -326,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
     public int[] getLog() {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         int[] arr = new int[4];
-        arr[0] = Log.getInt("Date", Integer.parseInt(getdate()));
+        arr[0] = Log.getInt("Date", 0);
         arr[1] = Log.getInt("Percent", 0);
         arr[2] = Log.getInt("Finish", 0);
         arr[3] = Log.getInt("Level", 0);
@@ -358,8 +359,15 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void newfox(ImageButton fox) {
-        int randomImage = imageResources[new Random().nextInt(imageResources.length)];
+    public void newfox(ImageButton fox, boolean isFirst, int curFox) {
+        int randomImage;
+        if(isFirst == true) {
+            randomImage = imageResources[1];
+        } else {
+            do{
+                randomImage = imageResources[new Random().nextInt(imageResources.length)];
+            }while(randomImage==curFox);
+        }
 
         Intent intent = new Intent(this, NewfoxActivity.class);
         intent.putExtra("foxnum", randomImage);
@@ -411,10 +419,22 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    public void startGet(int lastFox) {
+        Intent intent = new Intent(this, GetfoxActivity.class);
+        intent.putExtra("foxnum", lastFox);
+        intent.putExtra("isGet", isFoxGet);
+        startActivity(intent);
+    }
+
     public void levelUp() {
         int[] arr = getLog();
-        String dateLog = String.valueOf(arr[0]);
         String date = getdate(); int dateN = Integer.parseInt(date);
+        String dateLog;
+        if(arr[0] == 0) {
+            dateLog = date;
+        } else {
+            dateLog = String.valueOf(arr[0]);
+        }
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
 
@@ -423,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
         String weekday = mFormat.format(nowDate);
         ImageButton fox = binding.fox;
 
-        if((dateN >= arr[0] + 1)||(Integer.parseInt(date.substring(4,5)) > Integer.parseInt(dateLog.substring(4,5)))) {
+        if((dateN >= Integer.parseInt(dateLog)+ 1)||(Integer.parseInt(date.substring(4,5)) > Integer.parseInt(dateLog.substring(4,5)))) {
             if(arr[1]>=70) {
                 if (arr[3] < 7) {
                     int levelDiff = arr[3]++;
@@ -447,15 +467,26 @@ public class MainActivity extends AppCompatActivity {
                     for(int i = 0;  i<imageResources.length; i++) {
                         if(imageResources[i]==Log.getInt("Fox", imageResources[1])) setFoxLog(i);
                     }
+                    isFoxGet = true;
                 }
-                Toast.makeText(this, "새로운 여우를 만나요", Toast.LENGTH_LONG).show();
-                newfox(fox);
+               else isFoxGet = false;
+               int lastFox = Log.getInt("Fox", imageResources[1]);
+               newfox(fox, false, Log.getInt("Fox", imageResources[1]));
+               startGet(lastFox);
             }
 
         }
         else {
-            Toast.makeText(this, "오늘방문", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "마지막로그: "+arr[0], Toast.LENGTH_LONG).show();
+            if(arr[0] == 0 ) {
+                Toast.makeText(this, "첫방문", Toast.LENGTH_SHORT).show();
+                newfox(fox, true, Log.getInt("Fox", 0));
+                setFoxLog(1);
+                editor.putInt("Date", dateN); editor.commit();
+            }
+            else {
+                Toast.makeText(this, "오늘방문", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "마지막로그: "+arr[0], Toast.LENGTH_LONG).show();
+            }
             levelView(arr[3]);
             int percentN = Log.getInt("Percent", 0);
             String percentS = String.valueOf(percentN);

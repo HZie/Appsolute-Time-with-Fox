@@ -25,9 +25,20 @@
     <string name="plywthm">나랑 놀자</string>
     <string name="udidit">해냈구나!</string>
     <string name="thx">약속 지켜줘서\n고마워 :)</string>
+
     <string name="newfox">새로운 여우가 놀러왔어요!</string>
     <string name="suggestion">새로운 여우와\n약속을 잡고 놀면서\n친해져보세요!</string>
     <string name="endmessage">터치하세요</string>
+
+    <string name="getfox">여우와 함께한\n일주일이 지나갔습니다</string>
+    <string name="getmessage">여우는\n오아시스에 남았습니다</string>
+    <string name="failmessage">여우는 떠나갔습니다</string>
+    <string name="get1">나와의 약속을 항상 지켜줘서\n너무고마워</string>
+    <string name="get2">앞으로 너와함께\n오아시스에서 놀고싶어졌어!</string>
+    <string name="get3">내가 보고싶어지면\n오아시스로 놀러와 :)</string>
+    <string name="fail1">너와 자주 놀지 못해서\n아쉬웠어</string>
+    <string name="fail2">하지만 이제\n떠날 때가 온 것 같아</string>
+    <string name="fail3">그립겠지만...\n안녕 :)</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

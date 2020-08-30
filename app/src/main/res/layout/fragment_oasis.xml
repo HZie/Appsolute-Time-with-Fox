@@ -17,10 +17,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/oasis_ground1" />
 
+
     <ImageButton
         android:id="@+id/fLifeg"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_lifeguard"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -33,8 +34,8 @@
 
     <ImageButton
         android:id="@+id/fAngry"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_angry"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -47,8 +48,8 @@
 
     <ImageButton
         android:id="@+id/fSwim"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_swim"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -61,8 +62,8 @@
 
     <ImageButton
         android:id="@+id/fNormal"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -75,8 +76,8 @@
 
     <ImageButton
         android:id="@+id/fBabay"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_baby"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -89,8 +90,8 @@
 
     <ImageButton
         android:id="@+id/fPilot"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_pilot"
         android:contentDescription="@string/fox"
         android:visibility="gone"
@@ -103,8 +104,8 @@
 
     <ImageButton
         android:id="@+id/fSleep"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/fox_sleep"
         android:contentDescription="@string/fox"
         android:visibility="gone"
