@@ -20,8 +20,6 @@ import java.util.Random;
 
 public class NewfoxActivity extends AppCompatActivity {
     ImageView newfox;
-    ImageView wordbox;
-    TextView foxword;
     TextView word;
     TextView message;
     int click = 0;
@@ -39,8 +37,6 @@ public class NewfoxActivity extends AppCompatActivity {
         int data = intent.getIntExtra("foxnum", R.drawable.fox);
 
         newfox = findViewById(R.id.newfox);
-        wordbox = findViewById(R.id.wordBox);
-        foxword = findViewById(R.id.foxword);
         word = findViewById(R.id.newfox_text);
         message = findViewById(R.id.endmessage);
         newfox.setBackground(ContextCompat.getDrawable(mcontext, data));
@@ -60,12 +56,6 @@ public class NewfoxActivity extends AppCompatActivity {
                 }
                 else if(click == 2) {
                     word.setText(R.string.suggestion3);
-                    click++;
-                }
-                else if(click == 3) {
-                    word.setText(R.string.suggestion4);
-                    wordbox.setVisibility(View.VISIBLE);
-                    foxword.setVisibility(View.VISIBLE);
                     click++;
                 }
                 else {

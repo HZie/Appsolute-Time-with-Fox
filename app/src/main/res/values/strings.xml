@@ -13,11 +13,11 @@
 
     <string name="playground">오아시스</string>
     <string name="exit">나가기</string>
-    <string name="oasis_button">OASIS</string>
+    <string name="oasis_button">오아시스로</string>
 
     <string name="fox">clickable fox</string>
     <string name="wordBox">appears when fox clicked</string>
-    <string name="levelText">LV: </string>
+    <string name="levelText">레벨: </string>
 
     <string name="hi">반가워!</string>
     <string name="howdud">오늘 하루는\n어땠어?</string>
@@ -28,10 +28,9 @@
 
     <string name="newfox">새로운 여우가 놀러왔어요!</string>
     <string name="suggestion">여우는 당신과\n일주일동안 함께 지낼거에요</string>
-    <string name="suggestion2">새로운 여우와\n매일 할일을 정하며\n친해져보세요!</string>
-    <string name="suggestion3">할일완료도에 따라\n여우와의 관계는 달라질거에요!</string>
-    <string name="suggestion4">그럼, 새로운 여우와의 약속을\n지키러가볼까요?</string>
-    <string name="suggestion5">일주일동안 잘부탁해 :)</string>
+    <string name="suggestion2">할일완료도에 따라\n여우와의 관계는 달라질거에요!</string>
+    <string name="suggestion3">그럼, 여우와의 약속을\n지키러가볼까요?</string>
+    <string name="suggestion4">일주일동안 잘부탁해 :)</string>
     <string name="endmessage">터치하세요</string>
 
     <string name="getfox">여우와 함께한\n일주일이 지나갔습니다</string>

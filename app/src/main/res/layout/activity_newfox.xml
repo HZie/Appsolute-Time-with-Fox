@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baekboam_normalfont"
         android:visibility="invisible"
-        android:text="@string/suggestion5"
+        android:text="@string/suggestion4"
         android:textAlignment="center"
         android:textColor="#272727"
         android:textSize="24sp"
