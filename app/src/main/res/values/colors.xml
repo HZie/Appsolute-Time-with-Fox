@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#B8860B</color>
-    <color name="weekBtnChecked">#B8860B</color>
+    <color name="colorAccent">#E67E00</color>
+    <color name="weekBtnChecked">#E67E00</color>
     <color name="weekBtnUnchecked">#FAFAD2</color>
     <color name="whiteText">#FFFFFF</color>
     <color name="blackText">#000000</color>

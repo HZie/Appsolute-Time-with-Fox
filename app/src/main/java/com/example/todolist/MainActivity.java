@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO: 1.매번 할일완료시 2.할일제거시 3.할일추가시 --> finish할일 퍼센트 구해서 로그에 저장
-    //TODO: 밑 함수에 itemnum=총할일수, finishtask=끝낸 할일수만 넣어주면 됨
+    //TODO: 밑 함수를 어뎁터에서 불러와서 itemnum=총할일수, finishtask=끝낸 할일수만 넣어주면 됨
     public void setPercent(int itemnum, int finishTask) {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
