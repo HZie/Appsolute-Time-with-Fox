@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressed = 0;
 
     // Use Realm DB
-    //Realm realm;
+    Realm realm;
 
     // Gamify 관련 변수
     public static Context mcontext;
@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         mcontext = this;
 
         // Realm DB 사용을 위한 초기화
-        //Realm.init(this);
-        //Realm realm = Realm.getDefaultInstance();
+        Realm.init(this);
+        Realm realm = Realm.getDefaultInstance();
 
         layoutBackground = binding.layoutBackground;
 
