@@ -176,6 +176,7 @@
                 android:max="100"
                 android:progress="0"
                 android:progressDrawable="@drawable/love_bar"
+                android:progressTint="#00BFA5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

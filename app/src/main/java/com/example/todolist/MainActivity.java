@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.todolist.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,8 +32,6 @@ import java.util.Locale;
 import java.util.Random;
 
 import io.realm.Realm;
-
-// TODO: gamify 관련해서 필요한 코드 작성
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressed = 0;
 
     // Use Realm DB
-    Realm realm;
+    //Realm realm;
 
     // Gamify 관련 변수
     public static Context mcontext;
@@ -91,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         mcontext = this;
 
         // Realm DB 사용을 위한 초기화
-        Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
+        //Realm.init(this);
+        //Realm realm = Realm.getDefaultInstance();
 
         layoutBackground = binding.layoutBackground;
 
@@ -124,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                         btnOasis.setText("Oasis");
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
+                        btnToOasis2.setVisibility(View.GONE);
+                        btnToOasis1.setVisibility(View.GONE);
                         layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     }
                     isDDay = true;
@@ -136,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
                         btnOasis.setText("Oasis");
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
+                        btnToOasis2.setVisibility(View.GONE);
+                        btnToOasis1.setVisibility(View.GONE);
                         layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     }
                     isDDay = false;
@@ -214,10 +217,11 @@ public class MainActivity extends AppCompatActivity {
         currList = 0;
 
         // gamify 관련 코드
+        //TODO: 할일 하나 완료시마다 메인화면 속 여우의 대사(TextView hi)를 -->@string/udidit으로 바꾸고 말풍선 보여주기
         final ImageView wordbox = binding.wordBox;
         final TextView hi = binding.hi;
         final ImageButton fox = binding.fox;
-
+        //여우대사
         fox.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,20 +239,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        //앱 킬때 점검하는부분
         Log = getSharedPreferences("Log", MODE_PRIVATE);
+        editor = Log.edit();
         int currentFox = Log.getInt("Fox", imageResources[1]);
         fox.setBackground(ContextCompat.getDrawable(mcontext, currentFox));
-        //editor = Log.edit(); editor.putInt("Date", 20200827); editor.commit();
         levelUp();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        View view = findViewById(R.id.listFragment);
-        pointX = view.getWidth();
-        pointY = view.getHeight();
-        Toast.makeText(getApplicationContext(),String.valueOf(pointX) + " " + String.valueOf(pointY),Toast.LENGTH_SHORT).show();
     }
 
     public void onBackPressed(){
@@ -290,21 +286,38 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: 여기부터 gamify 관련 코드 작성
     public String getdate() {
-        mFormat = new SimpleDateFormat("yyyyMMdd");
+        mFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date nowDate = new Date(System.currentTimeMillis());
         String date = mFormat.format(nowDate);
         return date;
     }
+
+    //현재 날짜 기준 다음주 월요일
+    public String getMonday() {
+        mFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cur = Calendar.getInstance();
+        cur.setFirstDayOfWeek(Calendar.MONDAY);
+        cur.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        cur.add(Calendar.DATE, 7);
+        String date = mFormat.format(cur.getTime());
+        return date;
+    }
+
+    public void percentView(int percent) {
+        prgbar = binding.loveprg;
+        percentV = binding.percent;
+        percentV.setText(String.valueOf(percent));
+        prgbar.setProgress(percent, true);
+        if(percent>=70) {
+            prgbar.getProgressTintMode();
+        }
+    }
+
     public void levelView(int level) {
         levelView = binding.levelNum;
         levelView.setText(String.valueOf(level));
     }
-    public void percentView(String percentS, int percentN) {
-        prgbar = binding.loveprg;
-        percentV = binding.percent;
-        percentV.setText(percentS);
-        prgbar.setProgress(percentN, true);
-    }
+
     public void levelupView(int level) {
         levelView(level);
         final ImageView wordbox = binding.wordBox;
@@ -314,52 +327,34 @@ public class MainActivity extends AppCompatActivity {
         wordbox.setVisibility(View.VISIBLE);
         hi.setText(R.string.thx);
         hi.setVisibility(View.VISIBLE);
-
-        Handler mHandler = new Handler();
-        mHandler.postDelayed(new Runnable()  {
-            public void run() {
-                wordbox.setVisibility(View.INVISIBLE);
-                hi.setVisibility(View.INVISIBLE);
-            }
-        }, 2000);
     }
 
     public int[] getLog() {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
-        int[] arr = new int[4];
-        arr[0] = Log.getInt("Date", 0);
-        arr[1] = Log.getInt("Percent", 0);
-        arr[2] = Log.getInt("Finish", 0);
-        arr[3] = Log.getInt("Level", 0);
+        int[] arr = new int[2];
+        arr[0] = Log.getInt("Percent", 0);
+        arr[1] = Log.getInt("Level", 0);
         return arr;
     }
 
-    public void change_percent(int itemnum) {
+    public String getDateLog() {
+        Log = getSharedPreferences("Log", MODE_PRIVATE);
+        return Log.getString("Date", "01-01-1999");
+    }
+
+    //TODO: 1.매번 할일완료시 2.할일제거시 3.할일추가시 --> finish할일 퍼센트 구해서 로그에 저장
+    //TODO: 밑 함수에 itemnum=총할일수, finishtask=끝낸 할일수만 넣어주면 됨
+    public void setPercent(int itemnum, int finishTask) {
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
-
-        int finishTask = Log.getInt("Finish", 0);
         int percent = (int)((float) finishTask/itemnum*100);
         editor.putInt("Percent", percent);
-        editor.putInt("Date", Integer.parseInt(getdate()));
+        editor.putString("Date", getdate());
         editor.commit();
-        percentView(String.valueOf(percent), percent);
+        percentView(percent);
     }
 
-    public void taskDone(int itemnum) {
-        Log = getSharedPreferences("Log", MODE_PRIVATE);
-        editor = Log.edit();
-
-        int finishTask = Log.getInt("Finish", 0);
-        finishTask++;
-
-        TextView hi = findViewById(R.id.hi);
-        hi.setText(R.string.udidit);
-        editor.putInt("Finish", finishTask);
-        editor.commit();
-    }
-
-    public void newfox(ImageButton fox, boolean isFirst, int curFox) {
+    public void getNewFox(ImageButton fox, boolean isFirst, int curFox) {
         int randomImage;
         if(isFirst == true) {
             randomImage = imageResources[1];
@@ -371,24 +366,19 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, NewfoxActivity.class);
         intent.putExtra("foxnum", randomImage);
+        if(isFirst == true) intent.putExtra("isFirst", true);
         startActivity(intent);
 
         editor.putInt("Fox", randomImage);
         editor.commit();
         fox.setBackground(ContextCompat.getDrawable(mcontext, randomImage));
+    }
 
-        final ImageView wordbox = binding.wordBox;
-        final TextView hi = binding.hi;
-        wordbox.setVisibility(View.VISIBLE);
-        hi.setText(stringResources[1]);
-        hi.setVisibility(View.VISIBLE);
-        Handler mHandler = new Handler();
-        mHandler.postDelayed(new Runnable()  {
-            public void run() {
-                wordbox.setVisibility(View.INVISIBLE);
-                hi.setVisibility(View.INVISIBLE);
-            }
-        }, 2000);
+    public void leaveFox(int lastFox) {
+        Intent intent = new Intent(this, GetfoxActivity.class);
+        intent.putExtra("foxnum", lastFox);
+        intent.putExtra("isGet", isFoxGet);
+        startActivity(intent);
     }
 
     public Boolean[] getFoxLog() {
@@ -419,79 +409,104 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void startGet(int lastFox) {
-        Intent intent = new Intent(this, GetfoxActivity.class);
-        intent.putExtra("foxnum", lastFox);
-        intent.putExtra("isGet", isFoxGet);
-        startActivity(intent);
-    }
-
     public void levelUp() {
-        int[] arr = getLog();
-        String date = getdate(); int dateN = Integer.parseInt(date);
-        String dateLog;
-        if(arr[0] == 0) {
-            dateLog = date;
-        } else {
-            dateLog = String.valueOf(arr[0]);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        int[] foxLog = getLog();
+        String curDate = getdate();
+        String logDate = getDateLog();
+        Date date1 = null;
+        Date date2 = null;
+
+        try {
+            date1 = sdf.parse(logDate);
+            date2 = sdf.parse(curDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        Calendar log = Calendar.getInstance();
+        Calendar cur = Calendar.getInstance();
+        log.setTime(date1); cur.setTime(date2);
+
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
-
-        mFormat = new SimpleDateFormat("EE", Locale.KOREAN);
-        Date nowDate = new Date(System.currentTimeMillis());
-        String weekday = mFormat.format(nowDate);
         ImageButton fox = binding.fox;
 
-        if((dateN >= Integer.parseInt(dateLog)+ 1)||(Integer.parseInt(date.substring(4,5)) > Integer.parseInt(dateLog.substring(4,5)))) {
-            if(arr[1]>=70) {
-                if (arr[3] < 7) {
-                    int levelDiff = arr[3]++;
+        if(logDate == "01-01-1999") { //날짜 로그 비어있을시 기본값임
+            Toast.makeText(this, "첫방문", Toast.LENGTH_SHORT).show();
+            getNewFox(fox, true, Log.getInt("Fox", 0));
+            editor.putInt("Fox", imageResources[1]);
+
+            editor.putString("Date", getdate());
+            editor.putString("FoxDate", getMonday());
+            editor.commit();
+
+            levelView(Log.getInt("Level", 0));
+            int percent = Log.getInt("Percent", 0);
+            percentView(percent);
+        }
+        else if(log.before(cur)) {
+            if(foxLog[0]>=70) {
+                if (foxLog[1] < 7) {
+                    int levelDiff = foxLog[1]++;
                     editor.putInt("Level", levelDiff);
                     levelupView(levelDiff);
                 } else Toast.makeText(this, "이미 길들이기 LV.7달성!", Toast.LENGTH_LONG).show();
-                levelView(arr[3]);
+                levelView(foxLog[1]);
             }
-            else if(arr[1]<70) {
+            else if(foxLog[0]<70) {
                 Toast.makeText(this, "70%달성 실패", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "어제 달성률: "+ arr[1], Toast.LENGTH_SHORT).show();
-                levelView(arr[3]);
+                Toast.makeText(this, "저번 달성률: "+ foxLog[0], Toast.LENGTH_SHORT).show();
+                levelView(foxLog[1]);
             }
-            editor.putInt("Finish", 0); editor.putInt("Date", dateN); editor.putInt("Percent", 0);
+            editor.putInt("Finish", 0); editor.putString("Date", getdate()); editor.putInt("Percent", 0);
             editor.commit();
-            percentView(String.valueOf(Log.getInt("Percent", 0)), Log.getInt("Percent", 0));
-            if(weekday.equals("월")) {
-                if(Log.getInt("Level", 0)>=7) {
-                    Toast.makeText(this, "여우와 약속 지키기 성공!", Toast.LENGTH_LONG).show();
-                    Toast.makeText(this, "여우와 친구가 됐어요!", Toast.LENGTH_LONG).show();
-                    for(int i = 0;  i<imageResources.length; i++) {
-                        if(imageResources[i]==Log.getInt("Fox", imageResources[1])) setFoxLog(i);
-                    }
-                    isFoxGet = true;
-                }
-               else isFoxGet = false;
-               int lastFox = Log.getInt("Fox", imageResources[1]);
-               newfox(fox, false, Log.getInt("Fox", imageResources[1]));
-               startGet(lastFox);
-            }
-
+            percentView(Log.getInt("Percent", 0));
+            isNextWeek(); //다음주가 됐거나 지났는지(새 여우 지급용 함수)
         }
         else {
-            if(arr[0] == 0 ) {
-                Toast.makeText(this, "첫방문", Toast.LENGTH_SHORT).show();
-                newfox(fox, true, Log.getInt("Fox", 0));
-                setFoxLog(1);
-                editor.putInt("Date", dateN); editor.commit();
-            }
-            else {
-                Toast.makeText(this, "오늘방문", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "마지막로그: "+arr[0], Toast.LENGTH_LONG).show();
-            }
-            levelView(arr[3]);
-            int percentN = Log.getInt("Percent", 0);
-            String percentS = String.valueOf(percentN);
-            percentView(percentS, percentN);
+            Toast.makeText(this, "오늘방문", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "마지막로그: "+ logDate, Toast.LENGTH_LONG).show();
+            levelView(foxLog[1]);
+            int percent = Log.getInt("Percent", 0);
+            percentView(percent);
         }
+    }
+
+    //현재 키우고있는 여우를 받았던 주가 지났는지 여부
+    public void isNextWeek(){
+        ImageButton foxImage = binding.fox;
+        Log = getSharedPreferences("Log", MODE_PRIVATE);
+        editor = Log.edit();
+
+        Calendar cur = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String logDate = Log.getString("FoxDate", getMonday()); //여우 받은 주의 다음주 월요일
+        Date date = null;
+        try {
+            date = sdf.parse(logDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+
+        if(cal.before(cur)) { //만약 여우 받은 주가 이미 지났다면 (여우 받은 주의 다음주 월요일 이후 날짜라면)
+            if(Log.getInt("Level", 0)>=7) { //레벨 7
+                Toast.makeText(this, "여우와 약속 지키기 성공!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "여우와 친구가 됐어요!", Toast.LENGTH_LONG).show();
+                for(int i = 0;  i<imageResources.length; i++) {
+                    if(imageResources[i]==Log.getInt("Fox", imageResources[1])) setFoxLog(i);
+                }
+                isFoxGet = true;
+            }
+            else isFoxGet = false; //레벨 7 아닌경우
+            editor.putString("FoxDate", getMonday()); editor.commit();
+            int lastFox = Log.getInt("Fox", imageResources[1]);
+            getNewFox(foxImage, false, Log.getInt("Fox", imageResources[1]));
+            leaveFox(lastFox);
+        }
+
     }
 
 }

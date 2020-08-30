@@ -41,9 +41,6 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
                     if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
                         changeChecked(mData.get(position).getId(),itemCheckBox.isChecked());
                         notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
-                        int itemnum = getItemCount();
-
-                        ((MainActivity)MainActivity.mcontext).change_percent(itemnum);
 
                     }
                 }

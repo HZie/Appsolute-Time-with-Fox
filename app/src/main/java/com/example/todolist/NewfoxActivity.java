@@ -20,6 +20,8 @@ import java.util.Random;
 
 public class NewfoxActivity extends AppCompatActivity {
     ImageView newfox;
+    ImageView wordbox;
+    TextView foxword;
     TextView word;
     TextView message;
     int click = 0;
@@ -37,16 +39,12 @@ public class NewfoxActivity extends AppCompatActivity {
         int data = intent.getIntExtra("foxnum", R.drawable.fox);
 
         newfox = findViewById(R.id.newfox);
+        wordbox = findViewById(R.id.wordBox);
+        foxword = findViewById(R.id.foxword);
         word = findViewById(R.id.newfox_text);
         message = findViewById(R.id.endmessage);
         newfox.setBackground(ContextCompat.getDrawable(mcontext, data));
 
-        Handler mHandler = new Handler();
-        mHandler.postDelayed(new Runnable()  {
-            public void run() {
-                message.setVisibility(View.VISIBLE);
-            }
-        }, 3000);
         ConstraintLayout popup = (ConstraintLayout) findViewById(R.id.popup);
 
         popup.setOnClickListener(new ImageButton.OnClickListener() {
@@ -55,7 +53,20 @@ public class NewfoxActivity extends AppCompatActivity {
                 if(click == 0) {
                     word.setText(R.string.suggestion);
                     click++;
-                    message.setText("한번더 터치하세요");
+                }
+                else if(click == 1) {
+                    word.setText(R.string.suggestion2);
+                    click++;
+                }
+                else if(click == 2) {
+                    word.setText(R.string.suggestion3);
+                    click++;
+                }
+                else if(click == 3) {
+                    word.setText(R.string.suggestion4);
+                    wordbox.setVisibility(View.VISIBLE);
+                    foxword.setVisibility(View.VISIBLE);
+                    click++;
                 }
                 else {
                     finish();
