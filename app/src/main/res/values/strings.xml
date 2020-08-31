@@ -13,11 +13,11 @@
 
     <string name="playground">오아시스</string>
     <string name="exit">나가기</string>
-    <string name="oasis_button">오아시스로</string>
+    <string name="oasis_button">To Oasis</string>
 
     <string name="fox">clickable fox</string>
     <string name="wordBox">appears when fox clicked</string>
-    <string name="levelText">레벨: </string>
+    <string name="levelText">약속레벨: </string>
 
     <string name="hi">반가워!</string>
     <string name="howdud">오늘 하루는\n어땠어?</string>

@@ -5,6 +5,7 @@
     android:id="@+id/layoutBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/todo_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -32,12 +33,19 @@
             android:background="@drawable/dday_button"
             android:text="To D-Day" />
 
-        <ImageButton
-            android:id="@+id/btnHelp"
+        <FrameLayout
             android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="#00FFFFFF"
-            app:srcCompat="@drawable/help_button" />
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btnHelp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/qmark"/>
+
+        </FrameLayout>
+
     </LinearLayout>
 
     <TextView
@@ -45,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2020-08-23"
-        android:textColor="#000000"
+        android:textColor="#B3000000"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/listFragment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,10 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="#FB8C00"
+        android:backgroundTint="#66000000"
         android:clickable="true"
-        android:src="@drawable/plus_button"
-        app:backgroundTint="#00FFFFFF"
+        android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -92,14 +99,14 @@
         android:background="@drawable/airplane_oasis_go"
         android:gravity="bottom|center_horizontal"
         android:text="@string/oasis_button"
-        android:textColor="#000000"
+        android:textColor="#B3000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
 
     <ImageView
         android:id="@+id/mainground"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="120dp"
         android:background="@drawable/main_ground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,10 +126,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-    //여우 말풍선 관련 뷰
-
-    //여우 애정도 관련 뷰
-
+    //여우 말풍선 관련뷰
     <ImageView
         android:id="@+id/wordBox"
         android:layout_width="120dp"
@@ -203,7 +207,9 @@
             android:id="@+id/levelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
+            android:fontFamily="@font/dx_splashfont"
+            android:textStyle="bold"
             android:layout_marginLeft="20dp"
             android:text="@string/levelText"
             android:textColor="#000000" />
@@ -212,7 +218,7 @@
             android:id="@+id/levelNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:text="0"
             android:textColor="#000000" />
