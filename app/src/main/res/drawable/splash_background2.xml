@@ -32,7 +32,7 @@
                         android:type="linear"
                         android:startX="83.5"
                         android:startY="302"
-                        android:endX="325"
+                        android:endX="300"
                         android:endY="302"
                         >
 

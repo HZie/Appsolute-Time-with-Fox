@@ -14,18 +14,22 @@
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/newfox_ground2_down"/>
+        app:layout_constraintTop_toBottomOf="@id/newfox_text"
+        app:layout_constraintVertical_bias="0.823"
+        app:srcCompat="@drawable/newfox_ground2_down" />
 
     <ImageView
         android:id="@+id/newfox_ground2up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@id/newfox_ground2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/newfox_ground2_up"/>
+        app:srcCompat="@drawable/newfox_ground2_up" />
 
     <ImageView
         android:id="@+id/newfox"
@@ -37,37 +41,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/wordBox"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:background="@drawable/word2"
-        android:visibility="invisible"
-        android:contentDescription="@string/wordBox"
-        app:layout_constraintBottom_toTopOf="@+id/newfox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newfox_text"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/foxword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/baekboam_normalfont"
-        android:visibility="invisible"
-        android:text="@string/suggestion4"
-        android:textAlignment="center"
-        android:textColor="#272727"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/wordBox"
-        app:layout_constraintEnd_toEndOf="@+id/wordBox"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/wordBox"
-        app:layout_constraintTop_toTopOf="@+id/wordBox"
-        app:layout_constraintVertical_bias="0.42" />
 
     <TextView
         android:id="@+id/newfox_text"
