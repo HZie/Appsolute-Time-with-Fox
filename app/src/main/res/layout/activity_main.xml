@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baekboam_normalfont"
         android:text="@string/hi"
-        android:textColor="#272727"
+        android:textColor="#B3000000"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="invisible"
