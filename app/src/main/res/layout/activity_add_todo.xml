@@ -335,6 +335,23 @@
             android:textStyle="bold"
             android:text="추가하기"
             android:textColor="@color/weekBtnChecked" />
+
+        <Button
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="수정하기"
+            android:textColor="@color/weekBtnChecked"
+            android:visibility="gone"/>
     </LinearLayout>
-z
+
+
+
+
 </LinearLayout>

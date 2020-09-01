@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,16 +22,19 @@ import com.example.todolist.databinding.ActivityAddTodoBinding;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 
 public class AddTodoActivity extends Activity{
     ActivityAddTodoBinding binding;
     ImageButton closeBtn;
-    Button saveBtn;
+    Button saveBtn, editBtn;
 
     EditText contentET;
     ToggleButton importantBtn, repeatBtn, dueBtn;
@@ -38,12 +42,11 @@ public class AddTodoActivity extends Activity{
     ToggleButton[]weekTBtn = new ToggleButton[7];
     DatePicker dueDP;
 
-    ToggleButton weekSingle;
-
     LinearLayout repeatLayout;
     LinearLayout ddayLayout;
 
-    private String todoIDhead;
+    private String todoIDhead="";
+    private String yesterdayIDhead="";
     private String todoID;
     private String todoDate;
     private String todoContent;
@@ -52,9 +55,10 @@ public class AddTodoActivity extends Activity{
     private String todoDueDate;
     private boolean todoIsRepeat;
     private String todoRepeatDate = "";
+    String editId="";
 
     Realm realm;
-
+    int mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,8 @@ public class AddTodoActivity extends Activity{
         binding = ActivityAddTodoBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        Intent intent = getIntent();
+        mode = intent.getIntExtra("mode",0);
 
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
@@ -73,6 +79,8 @@ public class AddTodoActivity extends Activity{
         // 바인딩
         closeBtn = binding.closeBtn;
         saveBtn = binding.saveBtn;
+        editBtn = binding.editBtn;
+
 
         contentET = binding.addTodoET;
         importantBtn = binding.importantBtn;
@@ -100,6 +108,7 @@ public class AddTodoActivity extends Activity{
         // 리스너 정의
         closeBtn.setOnClickListener(BtnOnClickListener);
         saveBtn.setOnClickListener(BtnOnClickListener);
+        editBtn.setOnClickListener(BtnOnClickListener);
 
         // 모드 버튼 (중요, 반복, 디데이)
         importantBtn.setOnClickListener(BtnOnClickListener);
@@ -110,12 +119,39 @@ public class AddTodoActivity extends Activity{
 
         dueDP.setOnDateChangedListener(dpListener);
         todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+        Calendar c1 = new GregorianCalendar();
+        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+        yesterdayIDhead = new SimpleDateFormat("yyyyMMdd",Locale.getDefault()).format(c1.getTime());
+        deletePrevData();
+
+        switch(mode){
+            case 1:
+                editBtn.setVisibility(View.GONE);
+                saveBtn.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                editId = intent.getStringExtra("itemID");
+                editBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.GONE);
+                setEditScreen(editId);
+                break;
+            default:
+                break;
+        }
     }
 
     public View.OnClickListener BtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch(view.getId()){
+                case R.id.editBtn:
+                    // ToDo: edit button 관련 메소드
+                    if(editToDoItem(editId)){
+                        ToDoFragment tdf = new ToDoFragment();
+                        tdf.onResume();
+                        finish();
+                    }
+                    break;
                 case R.id.saveBtn:
                     if(addToDoItem()){
                         ToDoFragment tdf = new ToDoFragment();
@@ -255,6 +291,30 @@ public class AddTodoActivity extends Activity{
         return true;
     }
 
+    public boolean editToDoItem(String id){
+        ToDoItem todo = getItem(id);
+        todoContent = contentET.getText().toString();
+
+        if(todoContent.compareTo("") == 0){
+            Toast.makeText(this, "할 일을 적어주세요", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        todoIsImportant = importantBtn.isChecked();
+        todoIsDDay = dueBtn.isChecked();
+        todoIsRepeat = repeatBtn.isChecked();
+        for(int i = 0; i < weekTBtn.length; i++){
+            // true: 1, false: 0
+            if(weekTBtn[i].isChecked())
+                todoRepeatDate += "1";
+            else
+                todoRepeatDate += "0";
+        }
+
+        updateItem(id);
+        return true;
+    }
+
     public void DBTransaction(ToDoItem todo){
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -273,6 +333,121 @@ public class AddTodoActivity extends Activity{
             Log.e("error at getLastID: ",String.valueOf(e));
         }
     }
+
+    public ToDoItem getItem(String id){
+        ToDoItem item = null;
+        try{
+            realm = Realm.getDefaultInstance();
+            item = realm.where(ToDoItem.class)
+                                        .equalTo("id",id)
+                                        .findFirst();
+            realm.close();
+        }
+        catch(Exception e){
+            Log.e("error at getItem(AddToDoActivity): ",String.valueOf(e));
+        }
+        return item;
+    }
+
+    public void updateItem(String id){
+        try{
+            realm = Realm.getDefaultInstance();
+            ToDoItem item = realm.where(ToDoItem.class)
+                    .equalTo("id",id)
+                    .findFirst();
+            realm.beginTransaction();
+
+            Log.d("id, content : ",id+" "+contentET.getText().toString());
+            item.setContent(contentET.getText().toString());
+            item.setImportant(importantBtn.isChecked());
+            item.setDDay(dueBtn.isChecked());
+            item.setRepeat(repeatBtn.isChecked());
+            if(todoIsRepeat)
+                item.setRepeatDate(todoRepeatDate);
+            if(todoIsDDay)
+                item.setDueDate(todoDueDate);
+
+            realm.commitTransaction();
+            realm.close();
+        }
+        catch(Exception e){
+            Log.e("error at changeChecked in AddTodoActivity:", String.valueOf(e));
+        }
+    }
+
+    public void setEditScreen(String id){
+        try{
+            realm = Realm.getDefaultInstance();
+            ToDoItem item = realm.where(ToDoItem.class)
+                    .equalTo("id",id)
+                    .findFirst();
+            realm.close();
+
+            contentET.setText(item.getContent());
+            importantBtn.setChecked(item.isImportant());
+            isToggleChecked(importantBtn);
+
+            repeatBtn.setChecked(item.isRepeat());
+            isToggleChecked(repeatBtn);
+            if(repeatBtn.isChecked())
+                repeatLayout.setVisibility(View.VISIBLE);
+            else
+                repeatLayout.setVisibility(View.GONE);
+
+            dueBtn.setChecked(item.isDDay());
+            isToggleChecked(dueBtn);
+            if(dueBtn.isChecked())
+                ddayLayout.setVisibility(View.VISIBLE);
+            else
+                ddayLayout.setVisibility(View.GONE);
+
+            String repeatDate = item.getRepeatDate();
+
+            if(repeatDate.equals("1111111"))
+                isEveryday.setChecked(true);
+            else
+                isEveryday.setChecked(false);
+
+            for(int i = 0; i < repeatDate.length(); i++){
+                if(repeatDate.charAt(i) == '1')
+                    weekTBtn[i].setChecked(true);
+                else
+                    weekTBtn[i].setChecked(false);
+                isToggleChecked(weekTBtn[i]);
+            }
+
+
+
+        }
+        catch(Exception e){
+            Log.e("error at setEditScreen in AddTodoActivity: ",String.valueOf(e));
+        }
+    }
+
+    public void deletePrevData(){
+        realm = Realm.getDefaultInstance();
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
+                            .beginsWith("id", yesterdayIDhead)
+                            .equalTo("isRepeat", false)
+                            .findAll();
+                    for (int i = 0; i < dItem.size(); i++) {
+                        if (dItem.isValid()) {
+                            dItem.get(i).deleteFromRealm();
+                        }
+                    }
+                    realm.close();
+                }
+                catch(Exception e){}
+
+            }
+        });
+    }
+
+
 
     public boolean onTouchEvent(MotionEvent event){
         if(event.getAction() == MotionEvent.ACTION_OUTSIDE){

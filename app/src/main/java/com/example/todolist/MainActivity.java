@@ -103,9 +103,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // 할 일 추가 화면
-                Intent intent = new Intent(MainActivity.this, AddTodoActivity.class);
-                startActivityForResult(intent,1);
+                goAddTodoActivity(1,"");
             }
         });
 
@@ -256,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
         if(System.currentTimeMillis() <= backKeyPressed + 2000){
             finish();
         }
-
     }
 
     // 0: to do list, 1: d-day list, 2: oasis
@@ -281,6 +278,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         ftran.commit();
+    }
+
+    public void goAddTodoActivity(int mode, String id){
+        // 할 일 추가 화면
+        Intent intent = new Intent(MainActivity.this, AddTodoActivity.class);
+        // mode가 1일 경우 추가
+        intent.putExtra("mode",mode);
+        intent.putExtra("itemID", id);
+        startActivityForResult(intent,1);
     }
 
     // TODO: 여기부터 gamify 관련 코드 작성

@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,18 +26,27 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     Realm realm;
     int checkedNum = 0;
     private Context mContext;
+    int showMenuPos = -1;
 
     // item View를 저장하는 뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
-
+        LinearLayout itemLayout;
         CheckBox itemCheckBox;
         ImageView importantBt;
+
+        LinearLayout menuLayout;
+        ImageButton editBtn;
+        ImageButton deleteBtn;
 
         public ViewHolder(final View itemView){   // itemView와 연결했기 때문에 findViewById 앞에 itemView를 명시한다.
             super(itemView);
 
             itemCheckBox = itemView.findViewById(R.id.itemCheckbox);
             this.importantBt = itemView.findViewById(R.id.importantBtn);
+            itemLayout = itemView.findViewById(R.id.main_item_layout);
+            menuLayout = itemView.findViewById(R.id.item_menu_layout);
+            editBtn = itemView.findViewById(R.id.editBtn);
+            deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
 
             // 체크박스 리스너
@@ -45,6 +57,36 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
                     if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
                         changeChecked(mData.get(position).getId(),itemCheckBox.isChecked());
                         notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
+                    }
+                }
+            });
+
+            itemLayout.setOnScrollChangeListener(new View.OnScrollChangeListener(){
+                @Override
+                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                    closeMenu();
+                }
+            });
+
+            editBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    ((MainActivity)mContext).goAddTodoActivity(2, mData.get(position).getId());
+                }
+            });
+
+            deleteBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        deleteDB(mData.get(position).getId());
+                        if(mData.get(position).isChecked())
+                            checkedNum--;
+                        mData.remove(position);
+                        notifyDataSetChanged();
+                        closeMenu();
                     }
                 }
             });
@@ -78,14 +120,23 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         holder.itemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
         holder.itemCheckBox.setChecked(mData.get(position).isChecked());
 
-        if(mData.get(position).isImportant())
-            holder.importantBt.setVisibility(View.VISIBLE);
-        else
-            holder.importantBt.setVisibility(View.GONE);
-//        if(mData.get(position).isChecked())
-//            holder.itemCheckBox.setTextColor(R.color.checkedText);
-//        else
-//            holder.itemCheckBox.setTextColor(R.color.blackText);
+        if(position == showMenuPos){
+            holder.itemLayout.setVisibility(View.GONE);
+            holder.menuLayout.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.itemLayout.setVisibility(View.VISIBLE);
+            holder.menuLayout.setVisibility(View.GONE);
+
+            if(mData.get(position).isImportant())
+                holder.importantBt.setVisibility(View.VISIBLE);
+            else
+                holder.importantBt.setVisibility(View.GONE);
+            if(mData.get(position).isChecked())
+                holder.itemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
+            else
+                holder.itemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
+        }
 
         setPercentage();
         //textview_todo_item.setText("할 일"); 동일
@@ -119,6 +170,23 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         }
     }
 
+    public void deleteDB(String id){
+        final String dId = id;
+        realm = Realm.getDefaultInstance();
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                ToDoItem dItem = realm.where(ToDoItem.class)
+                        .equalTo("id",dId)
+                        .findFirst();
+                if(dItem.isValid()){
+                    dItem.deleteFromRealm();
+                }
+            }
+        });
+        realm.close();
+    }
+
     public int getCheckedNum(){ return checkedNum; }
     public void setCheckedNum(int checkedNum){ this.checkedNum = checkedNum; }
 
@@ -128,6 +196,16 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         checked = getCheckedNum();
         Log.d("total. checked:",total+", " + checked);
         ((MainActivity)mContext).setPercent(total,checked);
+    }
+
+    public void showMenu(int position){
+        showMenuPos = position;
+        notifyDataSetChanged();
+    }
+
+    public void closeMenu(){
+        showMenuPos = -1;
+        notifyDataSetChanged();
     }
 
 
