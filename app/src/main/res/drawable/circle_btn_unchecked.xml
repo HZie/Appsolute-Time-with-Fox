@@ -14,9 +14,6 @@
         android:height="35dp"
         />
     <solid
-        android:color="@color/weekBtnUnchecked"
+        android:color="#80FFFFFF"
         />
-    <stroke
-        android:color="@color/weekBtnChecked"
-        android:width="1dp"/>
 </shape>

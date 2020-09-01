@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#59F8F5C8"
+    android:background="@drawable/todo_additem_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_marginEnd="8dp"
             android:background="#00FFFFFF"
             android:src="@android:drawable/ic_delete"
-            android:tint="#000000" />
+            android:tint="#FFFFFF" />
     </LinearLayout>
 
     <EditText
@@ -33,7 +33,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="To Do" />
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:hint="TO DO"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/colorAccent" />
 
 
     <LinearLayout
@@ -56,6 +60,7 @@
             android:textAlignment="gravity"
             android:textAllCaps="true"
             android:textColor="#000000"
+            android:textStyle="bold"
             android:textOff="중요"
             android:textOn="중요"
             android:textSize="14sp" />
@@ -74,6 +79,7 @@
             android:textAlignment="gravity"
             android:textAllCaps="true"
             android:textColor="#000000"
+            android:textStyle="bold"
             android:textOff="반복"
             android:textOn="반복"
             android:textSize="14sp" />
@@ -104,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
@@ -118,23 +124,32 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="반복"
-                android:textColor="#000000" />
+                android:textColor="@color/colorAccent" />
 
             <Space
-                android:layout_width="10dp"
+                android:layout_width="20dp"
                 android:layout_height="0dp" />
 
-            <CheckBox
-                android:id="@+id/isEveryday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="매일" />
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/isEveryday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:buttonTint="@color/colorAccent"
+            android:textStyle="bold"
+            android:text="매일" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <ToggleButton
@@ -147,6 +162,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="월"
                 android:textOn="월"
                 android:textSize="14sp" />
@@ -165,6 +181,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="화"
                 android:textOn="화"
                 android:textSize="14sp" />
@@ -183,6 +200,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="수"
                 android:textOn="수"
                 android:textSize="14sp" />
@@ -201,6 +219,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="목"
                 android:textOn="목"
                 android:textSize="14sp" />
@@ -219,6 +238,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="금"
                 android:textOn="금"
                 android:textSize="14sp" />
@@ -237,6 +257,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="토"
                 android:textOn="토"
                 android:textSize="14sp" />
@@ -255,6 +276,7 @@
                 android:textAlignment="gravity"
                 android:textAllCaps="true"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 android:textOff="일"
                 android:textOn="일"
                 android:textSize="14sp" />
@@ -268,7 +290,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
@@ -276,13 +298,16 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:text="D-Day 설정"
-            android:textColor="#000000" />
+            android:textColor="@color/weekBtnChecked" />
 
         <DatePicker
             android:id="@+id/dueDP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyDatePicker"
             android:layout_marginTop="5dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner" />
@@ -305,9 +330,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/weekBtnChecked"
+            android:background="#00FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="추가하기"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 </LinearLayout>

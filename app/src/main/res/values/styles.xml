@@ -2,13 +2,20 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/whiteText</item>
-        <item name="colorPrimaryDark">@color/blackText</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- 타이틀바 없애기 -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyDatePicker" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:numbersInnerTextColor">@color/colorPrimary</item>
+        <item name="android:colorControlNormal">@color/colorAccent</item>
     </style>
 
 

@@ -307,9 +307,11 @@ public class MainActivity extends AppCompatActivity {
         percentV = binding.percent;
         percentV.setText(String.valueOf(percent));
         prgbar.setProgress(percent, true);
+        //사용자들한테 레벨업 기준 보기 편하라고 70%넘으면 프로그레스 색상변겸됨.
         if(percent>=70) {
-            prgbar.getProgressTintMode();
+            prgbar.setProgressDrawable(ContextCompat.getDrawable(mcontext, R.drawable.love_bar2));
         }
+        else prgbar.setProgressDrawable(ContextCompat.getDrawable(mcontext, R.drawable.love_bar));
     }
 
     public void levelView(int level) {

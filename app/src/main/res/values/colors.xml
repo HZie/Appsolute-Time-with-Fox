@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#E67E00</color>
-    <color name="weekBtnChecked">#E67E00</color>
-    <color name="weekBtnUnchecked">#FAFAD2</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFA200</color>
+    <color name="weekBtnChecked">#FFA200</color>
+    <color name="weekBtnUnchecked">#FFFFFF</color>
     <color name="whiteText">#FFFFFF</color>
     <color name="blackText">#000000</color>
-    <color name="checkedText">#D3D3D3</color>
+    <color name="checkedText">#FFFFFF</color>
 </resources>
