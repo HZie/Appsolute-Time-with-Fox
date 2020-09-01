@@ -434,7 +434,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "첫방문", Toast.LENGTH_SHORT).show();
             getNewFox(fox, true, Log.getInt("Fox", 0));
             editor.putInt("Fox", 1);
-
             editor.putString("Date", getdate());
             editor.putString("FoxDate", getMonday());
             editor.commit();
