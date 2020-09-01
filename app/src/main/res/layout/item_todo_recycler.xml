@@ -23,7 +23,7 @@
             android:ems="22"
             android:maxLines="1"
             android:text="Checkbox"
-            android:textColor="@color/blackText"
+            android:textColor="#CC000000"
             android:textSize="22sp"
             android:textStyle="bold" />
 
