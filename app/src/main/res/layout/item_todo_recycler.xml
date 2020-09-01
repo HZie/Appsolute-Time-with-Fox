@@ -22,6 +22,7 @@
             android:ellipsize="end"
             android:ems="22"
             android:maxLines="1"
+            android:buttonTint="@color/colorAccent"
             android:text="Checkbox"
             android:textColor="#CC000000"
             android:textSize="22sp"
