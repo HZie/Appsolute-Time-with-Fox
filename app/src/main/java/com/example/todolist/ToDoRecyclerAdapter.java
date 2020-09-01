@@ -1,6 +1,8 @@
 package com.example.todolist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import io.realm.Realm;
 public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapter.ViewHolder> {
     private ArrayList<ToDoItem> mData = null;     // Todo라는 객체를 가진 ArrayList
     Realm realm;
+    int checkedNum = 0;
 
     // item View를 저장하는 뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -41,7 +44,6 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
                     if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
                         changeChecked(mData.get(position).getId(),itemCheckBox.isChecked());
                         notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
-
                     }
                 }
             });
@@ -68,6 +70,7 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     }
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ToDoRecyclerAdapter.ViewHolder holder, int position){
         holder.itemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
@@ -77,6 +80,11 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
             holder.importantBt.setVisibility(View.VISIBLE);
         else
             holder.importantBt.setVisibility(View.GONE);
+        if(mData.get(position).isChecked()){
+            holder.itemCheckBox.setTextColor(R.color.checkedColor);
+            checkedNum++;
+        }
+        setPercentage();
         //textview_todo_item.setText("할 일"); 동일
     }
 
@@ -103,6 +111,16 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
             Log.e("error at changeChecked in todo adapter:", String.valueOf(e));
         }
 
+    }
+
+    public int getCheckedNum(){ return checkedNum; }
+
+    public void setPercentage(){
+        int total, checked;
+        total = getItemCount();
+        checked = getCheckedNum();
+        MainActivity ma = new MainActivity();
+        ma.setPercent(total, checked);
     }
 
 
