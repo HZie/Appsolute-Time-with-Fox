@@ -21,6 +21,13 @@ public class GetfoxActivity extends AppCompatActivity {
     TextView narrator;
     TextView message;
     int click = 0;
+
+    int imageResources[] = {
+            R.drawable.fox_swim, R.drawable.fox, R.drawable.fox_sleep, R.drawable.fox_pilot, R.drawable.fox_angry,
+            R.drawable.fox_baby,  R.drawable.fox_lifeguard, R.drawable.fox_red, R.drawable.fox_guitar, R.drawable.fox_owl,
+            R.drawable.fox_flower, R.drawable.fox_cold, R.drawable.fox_spotato, R.drawable.fox_white, R.drawable.fox_xmas
+    };
+
     public static Context mcontext;
 
     @Override
@@ -30,7 +37,7 @@ public class GetfoxActivity extends AppCompatActivity {
         mcontext = this;
 
         final Intent intent = getIntent();
-        int data = intent.getIntExtra("foxnum", R.drawable.fox);
+        int data = intent.getIntExtra("foxnum", 1);
         final boolean get = intent.getBooleanExtra("isGet", false);
 
         final Intent intentM = new Intent(this, MainActivity.class);
@@ -40,7 +47,7 @@ public class GetfoxActivity extends AppCompatActivity {
         foxword = findViewById(R.id.foxword);
         narrator = findViewById(R.id.endfox_text);
         message = findViewById(R.id.endmessage);
-        endfox.setBackground(ContextCompat.getDrawable(mcontext, data));
+        endfox.setBackground(ContextCompat.getDrawable(mcontext, imageResources[1]));
 
         ConstraintLayout popup = (ConstraintLayout) findViewById(R.id.popup);
         if(get == false) {

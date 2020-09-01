@@ -2,31 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/todo_item_background">
 
         <CheckBox
             android:id="@+id/itemCheckbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="CheckBox"
-            android:textAlignment="textStart"
-            android:textSize="20sp"
-            android:ems="22"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:ellipsize="end"
-            android:layout_weight="1"/>
-
+            android:ems="22"
+            android:maxLines="1"
+            android:text="Checkbox"
+            android:textStyle="bold"
+            android:textColor="#BF000000"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/importantBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            app:srcCompat="@drawable/star" />
     </LinearLayout>
 
 </LinearLayout>

@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/dday_button"
-            android:text="To D-Day" />
+            android:text="To D-Day"
+            android:textColor="#B3000000"/>
 
         <FrameLayout
             android:layout_width="50dp"
@@ -53,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2020-08-23"
+        android:textStyle="bold"
         android:textColor="#B3000000"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/listFragment"
@@ -84,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="#404040"
+        android:backgroundTint="#3E362D"
         android:clickable="true"
         android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,6 +102,7 @@
         android:gravity="bottom|center_horizontal"
         android:text="@string/oasis_button"
         android:textColor="#B3000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
 
@@ -174,8 +177,9 @@
                 android:id="@+id/loveprg"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="120dp"
-                android:layout_height="16dp"
+                android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="1dp"
                 android:layout_marginStart="23dp"
                 android:max="100"
                 android:progress="0"
@@ -184,19 +188,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
             <TextView
                 android:id="@+id/percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="125dp"
+                android:layout_marginTop="1dp"
                 android:text="0"
-                android:textColor="#000000" />
+                android:textColor="#B3000000"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/heart"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="55dp"
                 android:background="@drawable/heart2"
                 android:contentDescription="@string/wordBox" />
 
@@ -208,20 +216,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/dx_splashfont"
+            android:layout_marginTop="2dp"
             android:textStyle="bold"
             android:layout_marginLeft="20dp"
             android:text="@string/levelText"
-            android:textColor="#000000" />
+            android:textColor="#B3000000" />
 
         <TextView
             android:id="@+id/levelNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="1dp"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:text="0"
-            android:textColor="#000000" />
+            android:textColor="#B3000000" />
     </LinearLayout>
 
     <Button
