@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#83838383"
+    android:background="#00838383"
     tools:context=".ToDoFragment">
 
 

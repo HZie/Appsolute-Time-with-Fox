@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     currList = 1;
                     btnDDay.setText("To to do list");
                     if(isOasis) {
-                        btnOasis.setText("Oasis");
+                        btnOasis.setText("To Oasis");
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
                         btnToOasis2.setVisibility(View.GONE);
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     currList = 0;
                     btnDDay.setText("To D-Day List");
                     if(isOasis) {
-                        btnOasis.setText("Oasis");
+                        btnOasis.setText("To Oasis");
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
                         btnToOasis2.setVisibility(View.GONE);
@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         btnOasis = binding.btnOasis;
         btnToOasis2 = binding.btnToOasis2;
         btnToOasis1 = binding.btnToOasis1;
-        btnOasis.setText("Oasis");
         isOasis = false;
 
         btnOasis.setOnClickListener(new View.OnClickListener(){
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     // TODO: 사막 background로 전환
-                    btnOasis.setText("Oasis");
+                    btnOasis.setText("To Oasis");
                     btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                     isOasis = false;
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
@@ -242,8 +241,8 @@ public class MainActivity extends AppCompatActivity {
         //앱 킬때 점검하는부분
         Log = getSharedPreferences("Log", MODE_PRIVATE);
         editor = Log.edit();
-        int currentFox = Log.getInt("Fox", imageResources[1]);
-        fox.setBackground(ContextCompat.getDrawable(mcontext, currentFox));
+        int currentFox = Log.getInt("Fox", 1);
+        fox.setBackground(ContextCompat.getDrawable(mcontext, imageResources[currentFox]));
         levelUp();
     }
 
@@ -357,10 +356,10 @@ public class MainActivity extends AppCompatActivity {
     public void getNewFox(ImageButton fox, boolean isFirst, int curFox) {
         int randomImage;
         if(isFirst == true) {
-            randomImage = imageResources[1];
+            randomImage = 1;
         } else {
             do{
-                randomImage = imageResources[new Random().nextInt(imageResources.length)];
+                randomImage = new Random().nextInt(imageResources.length);
             }while(randomImage==curFox);
         }
 
@@ -371,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
         editor.putInt("Fox", randomImage);
         editor.commit();
-        fox.setBackground(ContextCompat.getDrawable(mcontext, randomImage));
+        fox.setBackground(ContextCompat.getDrawable(mcontext, imageResources[randomImage]));
     }
 
     public void leaveFox(int lastFox) {
@@ -434,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
         if(logDate == "01-01-1999") { //날짜 로그 비어있을시 기본값임
             Toast.makeText(this, "첫방문", Toast.LENGTH_SHORT).show();
             getNewFox(fox, true, Log.getInt("Fox", 0));
-            editor.putInt("Fox", imageResources[1]);
+            editor.putInt("Fox", 1);
 
             editor.putString("Date", getdate());
             editor.putString("FoxDate", getMonday());
@@ -502,8 +501,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else isFoxGet = false; //레벨 7 아닌경우
             editor.putString("FoxDate", getMonday()); editor.commit();
-            int lastFox = Log.getInt("Fox", imageResources[1]);
-            getNewFox(foxImage, false, Log.getInt("Fox", imageResources[1]));
+            int lastFox = Log.getInt("Fox", 1);
+            getNewFox(foxImage, false, lastFox);
             leaveFox(lastFox);
         }
 
