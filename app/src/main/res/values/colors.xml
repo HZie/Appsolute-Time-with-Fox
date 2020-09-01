@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#FFA200</color>
+    <color name="colorAccent">#B3000000</color>
     <color name="weekBtnChecked">#FFA200</color>
     <color name="weekBtnUnchecked">#FFFFFF</color>
     <color name="whiteText">#FFFFFF</color>
