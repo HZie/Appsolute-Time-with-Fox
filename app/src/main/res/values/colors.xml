@@ -7,5 +7,5 @@
     <color name="weekBtnUnchecked">#FAFAD2</color>
     <color name="whiteText">#FFFFFF</color>
     <color name="blackText">#000000</color>
-    <color name="checkedColor">#D3D3D3</color>
+    <color name="checkedText">#D3D3D3</color>
 </resources>

@@ -22,6 +22,7 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     private ArrayList<ToDoItem> mData = null;     // Todo라는 객체를 가진 ArrayList
     Realm realm;
     int checkedNum = 0;
+    private Context mContext;
 
     // item View를 저장하는 뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -52,8 +53,9 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    ToDoRecyclerAdapter(ArrayList<ToDoItem> list){
+    ToDoRecyclerAdapter(ArrayList<ToDoItem> list, Context mContext){
         mData = list;
+        this.mContext = mContext;
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -80,10 +82,11 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
             holder.importantBt.setVisibility(View.VISIBLE);
         else
             holder.importantBt.setVisibility(View.GONE);
-        if(mData.get(position).isChecked()){
-            holder.itemCheckBox.setTextColor(R.color.checkedColor);
-            checkedNum++;
-        }
+//        if(mData.get(position).isChecked())
+//            holder.itemCheckBox.setTextColor(R.color.checkedText);
+//        else
+//            holder.itemCheckBox.setTextColor(R.color.blackText);
+
         setPercentage();
         //textview_todo_item.setText("할 일"); 동일
     }
@@ -96,6 +99,10 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
 
     public void changeChecked(String id, boolean isChecked){
         Log.d("id: ",id);
+        if(isChecked)
+            checkedNum++;
+        else
+            checkedNum--;
         try{
             realm = Realm.getDefaultInstance();
             Log.d("realm:", String.valueOf(realm));
@@ -110,17 +117,17 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         catch(Exception e){
             Log.e("error at changeChecked in todo adapter:", String.valueOf(e));
         }
-
     }
 
     public int getCheckedNum(){ return checkedNum; }
+    public void setCheckedNum(int checkedNum){ this.checkedNum = checkedNum; }
 
     public void setPercentage(){
         int total, checked;
         total = getItemCount();
         checked = getCheckedNum();
-        MainActivity ma = new MainActivity();
-        ma.setPercent(total, checked);
+        Log.d("total. checked:",total+", " + checked);
+        ((MainActivity)mContext).setPercent(total,checked);
     }
 
 

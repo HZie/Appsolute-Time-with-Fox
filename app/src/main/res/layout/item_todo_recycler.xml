@@ -23,9 +23,9 @@
             android:ems="22"
             android:maxLines="1"
             android:text="Checkbox"
-            android:textStyle="bold"
-            android:textColor="#BF000000"
-            android:textSize="22sp" />
+            android:textColor="@color/blackText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/importantBtn"

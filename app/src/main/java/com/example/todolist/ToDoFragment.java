@@ -56,7 +56,7 @@ public class ToDoFragment extends Fragment {
         todoArrayList = new ArrayList<>();
         LinearLayoutManager todoLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(todoLayoutManager);
-        todoAdapter = new ToDoRecyclerAdapter(todoArrayList);   //어뎁터 안에 array list 넣기
+        todoAdapter = new ToDoRecyclerAdapter(todoArrayList, getContext());   //어뎁터 안에 array list 넣기
         recyclerView.setAdapter(todoAdapter);                   // 어뎁터 셋팅
     }
 
@@ -68,15 +68,26 @@ public class ToDoFragment extends Fragment {
 
     public void getDataFromDB(){
        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+       int checkedNum = 0;
        if(todoArrayList != null)
            todoArrayList.clear();
        try{
            realm = Realm.getDefaultInstance();
-           final RealmResults<ToDoItem> items = realm.where(ToDoItem.class).contains("date", date).findAll();
+           final RealmResults<ToDoItem> items = realm.where(ToDoItem.class)
+                                                        .contains("date", date)
+                                                        .findAll();
+           items.where()
+                   .equalTo("isDDay",false)
+                   .findAll();
            for(int i = 0; i < items.size(); i++){
                todoArrayList.add(items.get(i));
+
+               if(items.get(i).isChecked()){
+                   checkedNum++;
+               }
                Log.d("getFromDB: ",items.get(i).getContent());
            }
+           todoAdapter.setCheckedNum(checkedNum);
        }
        catch(Exception e){
            Log.e("error at getDataFromDB: ",String.valueOf(e));
