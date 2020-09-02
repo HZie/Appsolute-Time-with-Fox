@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDDay = binding.btnDDay;
-        btnDDay.setText(getDdayfromDB());
         isDDay = false;
+
+        btnDDay = binding.btnDDay;
         btnDDay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -273,6 +273,13 @@ public class MainActivity extends AppCompatActivity {
         if(System.currentTimeMillis() <= backKeyPressed + 2000){
             finish();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        btnDDay.setText(getDdayfromDB());
+
     }
 
     // 0: to do list, 1: d-day list, 2: oasis
