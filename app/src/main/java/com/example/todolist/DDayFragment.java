@@ -87,6 +87,14 @@ public class DDayFragment extends Fragment {
 
     public void getDataFromDB(){
         Log.d("getDataFromDB at DDayFragment:","called");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        final Date todayStart = cal.getTime();
         if(dDayItems != null)
             dDayItems.clear();
         else
@@ -95,7 +103,8 @@ public class DDayFragment extends Fragment {
             realm = Realm.getDefaultInstance();
             final RealmResults<ToDoItem> items = realm.where(ToDoItem.class)
                     .equalTo("isDDay",true)
-                    .findAll();
+                    .greaterThanOrEqualTo("dueDate", todayStart)
+                    .findAllSorted("dueDate");
 
             for(int i = 0; i < items.size(); i++){
                 dDayItems.add(items.get(i));

@@ -106,6 +106,7 @@ public class ToDoFragment extends Fragment {
                     RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
                             .lessThan("date", todayStart)
                             .equalTo("isRepeat", false)
+                            .equalTo("isDDay",false)
                             .findAll();
                     for (int i = 0; i < dItem.size(); i++) {
                         if (dItem.isValid()) {
@@ -115,7 +116,7 @@ public class ToDoFragment extends Fragment {
                     System.out.println("deletePrevData");
 
                     RealmResults<ToDoItem> dItems = realm.where(ToDoItem.class)
-                            .lessThan("date", todayStart)
+                            .lessThan("dueDate", todayStart)
                             .equalTo("isDDay",true)
                             .findAll();
 
@@ -127,13 +128,14 @@ public class ToDoFragment extends Fragment {
                     }
                     notifyAll();
 
-                    realm.close();
                 }
                 catch(Exception e){
                 }
 
             }
         });
+        realm.close();
+
         return true;
 
     }
@@ -142,7 +144,7 @@ public class ToDoFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)-1);
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);

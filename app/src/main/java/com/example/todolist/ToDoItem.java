@@ -11,7 +11,7 @@ public class ToDoItem extends RealmObject {
     private String content;
     private boolean isImportant;
     private boolean isDDay;
-    private String dueDate ="";
+    private Date dueDate;
     private boolean checked = false;
     private boolean isRepeat;
     private String repeatDate = "";  // true: 1, false: 0
@@ -28,11 +28,11 @@ public class ToDoItem extends RealmObject {
         this.checked = false;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -38,6 +39,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
         CheckBox todoItemCheckBox;
         TextView ddayItemText;
         ImageView importantBt;
+        ImageView repeatBtn;
 
         LinearLayout menuLayout;
         ImageButton editBtn;
@@ -53,6 +55,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
             menuLayout = itemView.findViewById(R.id.item_menu_layout);
             editBtn = itemView.findViewById(R.id.editBtn);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
+            repeatBtn = itemView.findViewById(R.id.repeatBtn);
 
 
 
@@ -150,10 +153,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
                 holder.todoItemCheckBox.setChecked(mData.get(position).isChecked());
             }
             else if(mode == 2){
-                holder.ddayItemText.setText(mData.get(position).getDueDate()+": "+mData.get(position).getContent());
+                holder.ddayItemText.setText(new SimpleDateFormat("MM/dd").format(mData.get(position).getDueDate())+": "+mData.get(position).getContent());
             }
-
-
 
             if(position == showMenuPos){
                 holder.itemLayout.setVisibility(View.GONE);
@@ -171,6 +172,10 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
                     holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
                 else
                     holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
+                if(mData.get(position).isRepeat())
+                    holder.repeatBtn.setVisibility(View.VISIBLE);
+                else
+                    holder.repeatBtn.setVisibility(View.GONE);
             }
 
             setPercentage();
@@ -225,6 +230,35 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
             }
         });
         realm.close();
+    }
+
+    public void deleteAll(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -2);
+        final Date beforeTwoYear = cal.getTime();
+        Log.d("Date beforeTwoYear: ", String.valueOf(beforeTwoYear));
+
+        Log.d("delete all:", "called");
+        realm = Realm.getDefaultInstance();
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<ToDoItem> dItems = realm.where(ToDoItem.class)
+                        .lessThan("date",beforeTwoYear)
+                        .findAll();
+
+                for(int i = 0; i < dItems.size(); i++){
+                    if(dItems.get(i).isValid()){
+                        Log.d("delete :", dItems.get(i).getContent());
+                    }
+                }
+                dItems.deleteAllFromRealm();
+
+
+            }
+        });
+        realm.close();
+
     }
 
     public int getCheckedNum(){ return checkedNum; }

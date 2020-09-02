@@ -53,7 +53,7 @@ public class AddTodoActivity extends Activity{
     private String todoContent;
     private boolean todoIsImportant;
     private boolean todoIsDDay;
-    private String todoDueDate;
+    private Date todoDueDate;
     private boolean todoIsRepeat;
     private String todoRepeatDate = "";
     String editId="";
@@ -125,7 +125,11 @@ public class AddTodoActivity extends Activity{
         dpTextView.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
         //TODO: 오늘까지인 디데이 추가시에 스피너 조작을 안한채로 그대로 추가하게 되는데(스피너 처음값이 오늘이니까)
         //TODO: 이렇게 하면 날짜가 null로 뜨길래 처음에 오늘값을 todoDueDate에 초기값으로 줌
-        todoDueDate = new SimpleDateFormat("MM/dd", Locale.KOREAN).format(Calendar.getInstance().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        todoDueDate = cal.getTime();
         todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
 
 
@@ -195,8 +199,11 @@ public class AddTodoActivity extends Activity{
             cal.set(Calendar.YEAR, year);
             cal.set(Calendar.MONTH, month);
             cal.set(Calendar.DAY_OF_MONTH, day);
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
             dpTextView.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(cal.getTime()));
-            todoDueDate = sdf.format(cal.getTime());
+            todoDueDate = cal.getTime();
 
         }
     };

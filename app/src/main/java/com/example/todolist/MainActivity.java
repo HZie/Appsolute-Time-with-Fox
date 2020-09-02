@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
         oasiswinterFrag = new OasisWinterFragment();
         btnDDay.setText(getDdayfromDB());
         currFrag = 0;
+        setFragment(currFrag);
         todoFrag.deletePrevData();
-
         currList = 0;
 
         // gamify 관련 코드
@@ -350,9 +350,9 @@ public class MainActivity extends AppCompatActivity {
             realm = Realm.getDefaultInstance();
             item = realm.where(ToDoItem.class)
                     .equalTo("isDDay", true)
-                    .greaterThanOrEqualTo("date",todayStart)
-                    .findAllSorted("date").get(0);
-            return item.getDueDate()+" - "+item.getContent();
+                    .greaterThanOrEqualTo("dueDate",todayStart)
+                    .findAllSorted("dueDate").get(0);
+            return new SimpleDateFormat("MM/dd").format(item.getDueDate())+" - "+item.getContent();
         }
         catch(Exception e){}
         return "To D-Day List";
