@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,18 +61,32 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
             yesterdayIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(c1.getTime());
             deletePrevData();
 
+            if(mode == 1){
+                todoItemCheckBox.setVisibility(View.VISIBLE);
+                ddayItemText.setVisibility(View.GONE);
+                // 체크박스 리스너
+                todoItemCheckBox.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        if(todoItemCheckBox.getVisibility() == View.VISIBLE){
+                            int position = getAdapterPosition();    // 현재 어뎁터가 다루고 있는 리스트의 포지션을 가져온다.
+                            if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
+                                Log.d("todoItemCheckBox? ", todoItemCheckBox.isChecked()+"");
+                                changeChecked(mData.get(position).getId(),todoItemCheckBox.isChecked());
+                                notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
+                            }
+                        }
 
-            // 체크박스 리스너
-            todoItemCheckBox.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    int position = getAdapterPosition();    // 현재 어뎁터가 다루고 있는 리스트의 포지션을 가져온다.
-                    if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
-                        changeChecked(mData.get(position).getId(),todoItemCheckBox.isChecked());
-                        notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
                     }
-                }
-            });
+                });
+          }
+            if(mode == 2){
+                ddayItemText.setVisibility(View.VISIBLE);
+                todoItemCheckBox.setVisibility(View.GONE);
+
+            }
+
+
 
             itemLayout.setOnScrollChangeListener(new View.OnScrollChangeListener(){
                 @Override
@@ -91,11 +106,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
             deleteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+
                     int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION){
-                        deleteDB(mData.get(position).getId());
                         if(mData.get(position).isChecked())
                             checkedNum--;
+                        setPercentage();
+                        deleteDB(mData.get(position).getId());
                         mData.remove(position);
                         notifyDataSetChanged();
                         closeMenu();
@@ -131,21 +148,16 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(recyclerAdapter.ViewHolder holder, int position){
 
-        Log.d("mode: ", String.valueOf(mode));
 
-        if(mode == 1){
-            holder.todoItemCheckBox.setVisibility(View.VISIBLE);
-            holder.ddayItemText.setVisibility(View.GONE);
-
+        if (mode == 1){
             holder.todoItemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
             holder.todoItemCheckBox.setChecked(mData.get(position).isChecked());
         }
-        if(mode == 2){
-            holder.ddayItemText.setVisibility(View.VISIBLE);
-            holder.todoItemCheckBox.setVisibility(View.GONE);
-
+        else if(mode == 2){
             holder.ddayItemText.setText(mData.get(position).getDueDate()+": "+mData.get(position).getContent());
         }
+
+
 
         if(position == showMenuPos){
             holder.itemLayout.setVisibility(View.GONE);
@@ -166,6 +178,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
         }
 
         setPercentage();
+
         //textview_todo_item.setText("할 일"); 동일
     }
 
@@ -176,18 +189,19 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
     }
 
     public void changeChecked(String id, boolean isChecked){
+        Log.d("id: ",id);
         if(isChecked)
             checkedNum++;
         else
             checkedNum--;
         try{
             realm = Realm.getDefaultInstance();
-            Log.d("realm:", String.valueOf(realm));
             ToDoItem item = realm.where(ToDoItem.class)
                     .contains("id",id)
                     .findFirst();
             realm.beginTransaction();
             item.setChecked(isChecked);
+            Log.d("is checked? ", item.isChecked()+"");
             realm.commitTransaction();
             realm.close();
         }
@@ -220,6 +234,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
         int total, checked;
         total = getItemCount();
         checked = getCheckedNum();
+        Log.d("total. checked:",total+", " + checked);
         ((MainActivity)mContext).setPercent(total,checked);
     }
 

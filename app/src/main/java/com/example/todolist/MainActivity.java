@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         todoFrag = new ToDoFragment();
         oasisFrag = new OasisFragment();
         oasiswinterFrag = new OasisWinterFragment();
-
+        currFrag = 0;
         setFragment(0);
         currList = 0;
 
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch(n){
             case 0:
-                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, todoFrag);
                 break;
             case 1:
@@ -290,11 +290,11 @@ public class MainActivity extends AppCompatActivity {
                 ftran.replace(R.id.listFragment, d_dayFrag);
                 break;
             case 2:
-                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasisFrag);
                 break;
             case 3:
-                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasiswinterFrag);
                 break;
             default:

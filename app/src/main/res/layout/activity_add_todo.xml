@@ -303,12 +303,21 @@
             android:text="D-Day 설정"
             android:textColor="@color/weekBtnChecked" />
 
+        <TextView
+            android:id="@+id/dpTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="text date with week"
+            android:textAlignment="center"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:paddingTop="10dp"/>
+
         <DatePicker
             android:id="@+id/dueDP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/MyDatePicker"
-            android:layout_marginTop="5dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner" />
     </LinearLayout>

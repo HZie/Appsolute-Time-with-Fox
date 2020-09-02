@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -41,6 +42,7 @@ public class AddTodoActivity extends Activity{
     CheckBox isEveryday;
     ToggleButton[]weekTBtn = new ToggleButton[7];
     DatePicker dueDP;
+    TextView dpTextView;
 
     LinearLayout repeatLayout;
     LinearLayout ddayLayout;
@@ -82,11 +84,11 @@ public class AddTodoActivity extends Activity{
         saveBtn = binding.saveBtn;
         editBtn = binding.editBtn;
 
-
         contentET = binding.addTodoET;
         importantBtn = binding.importantBtn;
         repeatBtn = binding.repeatBtn;
         dueBtn = binding.dDayBtn;
+        dpTextView = binding.dpTextView;
 
         isEveryday = binding.isEveryday;
         weekTBtn[0] = binding.monBtn;
@@ -119,6 +121,8 @@ public class AddTodoActivity extends Activity{
         setWeekListener();
 
         dueDP.setOnDateChangedListener(dpListener);
+        dueDP.updateDate(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        dpTextView.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
         todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
 
 
@@ -151,7 +155,6 @@ public class AddTodoActivity extends Activity{
                     break;
                 case R.id.saveBtn:
                     if(addToDoItem()){
-
                         ((MainActivity)MainActivity.mcontext).setFragment(currFrag);
                         finish();
                     }
@@ -183,14 +186,14 @@ public class AddTodoActivity extends Activity{
     DatePicker.OnDateChangedListener dpListener = new DatePicker.OnDateChangedListener(){
         @Override
         public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
-            String strMonth=(month+1)+"", strDay=day+"";
-            if(month+1 < 10){
-                strMonth = "0"+(month+1);
-            }
-            if(day < 10){
-                strDay = "0"+day;
-            }
-            todoDueDate = year+"-"+strMonth+"-"+strDay;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREAN);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, month);
+            cal.set(Calendar.DAY_OF_MONTH, day);
+            dpTextView.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(cal.getTime()));
+            todoDueDate = sdf.format(cal.getTime());
+
         }
     };
 

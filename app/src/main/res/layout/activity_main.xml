@@ -60,7 +60,7 @@
         android:text="2020-08-23"
         android:textStyle="bold"
         android:textColor="#B3000000"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/listFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
