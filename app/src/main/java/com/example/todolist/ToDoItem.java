@@ -1,12 +1,13 @@
 package com.example.todolist;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 
-// TODO: DB에 저장될 객체의 클래스 (D-Day여부: isDDay를 통해 알 수 있음)
 
 public class ToDoItem extends RealmObject {
     private String id;
-    private String date;
+    private Date date;
     private String content;
     private boolean isImportant;
     private boolean isDDay;
@@ -17,7 +18,7 @@ public class ToDoItem extends RealmObject {
 
     public ToDoItem(){}
 
-    public ToDoItem(String id, String date, String content, boolean isImportant, boolean isRepeat, boolean isDDay){
+    public ToDoItem(String id, Date date, String content, boolean isImportant, boolean isRepeat, boolean isDDay){
         this.id = id;
         this.date = date;
         this.content = content;
@@ -35,7 +36,7 @@ public class ToDoItem extends RealmObject {
         return dueDate;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -51,7 +52,7 @@ public class ToDoItem extends RealmObject {
         this.checked = checked;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

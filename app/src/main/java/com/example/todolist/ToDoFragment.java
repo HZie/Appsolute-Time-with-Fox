@@ -23,7 +23,6 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-// TODO: To Do List관련 코드 여기에 작성
 
 public class ToDoFragment extends Fragment {
 
@@ -47,6 +46,7 @@ public class ToDoFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        deletePrevData();
         recyclerView = binding.todoRecyclerView;
         todoArrayList = new ArrayList<>();
         LinearLayoutManager todoLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
@@ -88,16 +88,72 @@ public class ToDoFragment extends Fragment {
         getDataFromDB();
     }
 
+    public boolean deletePrevData(){
+        realm = Realm.getDefaultInstance();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        final Date todayStart = cal.getTime();
+        System.out.println(todayStart);
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
+                            .lessThan("date", todayStart)
+                            .equalTo("isRepeat", false)
+                            .findAll();
+                    for (int i = 0; i < dItem.size(); i++) {
+                        if (dItem.isValid()) {
+                            dItem.get(i).deleteFromRealm();
+                        }
+                    }
+                    System.out.println("deletePrevData");
+
+                    RealmResults<ToDoItem> dItems = realm.where(ToDoItem.class)
+                            .lessThan("date", todayStart)
+                            .equalTo("isDDay",true)
+                            .findAll();
+
+                    for (int i = 0; i < dItem.size(); i++) {
+                        if (dItem.isValid()) {
+                            System.out.println("dItem: "+dItem.get(i).getContent());
+                            dItem.get(i).deleteFromRealm();
+                        }
+                    }
+                    notifyAll();
+
+                    realm.close();
+                }
+                catch(Exception e){
+                }
+
+            }
+        });
+        return true;
+
+    }
+
     public void getDataFromDB(){
-        Date date = Calendar.getInstance().getTime();
-        String strDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)-1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        final Date todayStart = cal.getTime();
         int checkedNum = 0;
            if(todoArrayList != null)
                todoArrayList.clear();
            try{
                realm = Realm.getDefaultInstance();
                final RealmResults<ToDoItem> items = realm.where(ToDoItem.class)
-                                                            .contains("date", strDate)
+                                                            .greaterThanOrEqualTo("date", todayStart)
                                                             .equalTo("isDDay",false)
                                                             .equalTo("isRepeat",false)
                                                             .findAll();
@@ -110,8 +166,9 @@ public class ToDoFragment extends Fragment {
                    }
                }
 
+
                String queryVal = "";
-               String todayWeek = new SimpleDateFormat("EEE",Locale.ENGLISH).format(date);
+               String todayWeek = new SimpleDateFormat("EEE",Locale.ENGLISH).format(Calendar.getInstance().getTime());
                int weekNum = getWeekNum(todayWeek);
                for(int i = 0; i < 7; i++){
                    if(weekNum == i)

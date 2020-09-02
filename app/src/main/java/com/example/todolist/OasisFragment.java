@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import com.example.todolist.databinding.FragmentOasisBinding;
 import com.example.todolist.databinding.FragmentTodoBinding;
 
-// TODO: 오아시스(놀이방)관련 코드
 
 public class OasisFragment extends Fragment {
     ImageButton fNormal; ImageButton fSwim; ImageButton fSleep; ImageButton fBaby; ImageButton fPilot;

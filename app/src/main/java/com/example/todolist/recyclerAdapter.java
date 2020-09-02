@@ -30,7 +30,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
     int checkedNum = 0;
     private Context mContext;
     int showMenuPos = -1;
-    private String yesterdayIDhead="";
     int mode = 1;   // mode 1: to do fragment, mode 2: d-day fragment
 
     // item View를 저장하는 뷰홀더 클래스
@@ -55,11 +54,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
             editBtn = itemView.findViewById(R.id.editBtn);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
-            // 어제까지의 할 일 및 디데이 리스트 데이터에서 삭제
-            Calendar c1 = new GregorianCalendar();
-            c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
-            yesterdayIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(c1.getTime());
-            deletePrevData();
+
 
             if(mode == 1){
                 todoItemCheckBox.setVisibility(View.VISIBLE);
@@ -149,35 +144,40 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
     public void onBindViewHolder(recyclerAdapter.ViewHolder holder, int position){
 
 
-        if (mode == 1){
-            holder.todoItemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
-            holder.todoItemCheckBox.setChecked(mData.get(position).isChecked());
+        try{
+            if (mode == 1){
+                holder.todoItemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
+                holder.todoItemCheckBox.setChecked(mData.get(position).isChecked());
+            }
+            else if(mode == 2){
+                holder.ddayItemText.setText(mData.get(position).getDueDate()+": "+mData.get(position).getContent());
+            }
+
+
+
+            if(position == showMenuPos){
+                holder.itemLayout.setVisibility(View.GONE);
+                holder.menuLayout.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.itemLayout.setVisibility(View.VISIBLE);
+                holder.menuLayout.setVisibility(View.GONE);
+
+                if(mData.get(position).isImportant())
+                    holder.importantBt.setVisibility(View.VISIBLE);
+                else
+                    holder.importantBt.setVisibility(View.GONE);
+                if(mData.get(position).isChecked())
+                    holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
+                else
+                    holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
+            }
+
+            setPercentage();
         }
-        else if(mode == 2){
-            holder.ddayItemText.setText(mData.get(position).getDueDate()+": "+mData.get(position).getContent());
+        catch (Exception e){
+            Log.e("Exception:", String.valueOf(e));
         }
-
-
-
-        if(position == showMenuPos){
-            holder.itemLayout.setVisibility(View.GONE);
-            holder.menuLayout.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.itemLayout.setVisibility(View.VISIBLE);
-            holder.menuLayout.setVisibility(View.GONE);
-
-            if(mData.get(position).isImportant())
-                holder.importantBt.setVisibility(View.VISIBLE);
-            else
-                holder.importantBt.setVisibility(View.GONE);
-            if(mData.get(position).isChecked())
-                holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
-            else
-                holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
-        }
-
-        setPercentage();
 
         //textview_todo_item.setText("할 일"); 동일
     }
@@ -248,40 +248,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public void deletePrevData(){
-        realm = Realm.getDefaultInstance();
-        realm.executeTransactionAsync(new Realm.Transaction(){
-            @Override
-            public void execute(Realm realm) {
-                try {
-                    RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
-                            .beginsWith("id", yesterdayIDhead)
-                            .equalTo("isRepeat", false)
-                            .findAll();
-                    for (int i = 0; i < dItem.size(); i++) {
-                        if (dItem.isValid()) {
-                            dItem.get(i).deleteFromRealm();
-                        }
-                    }
 
-                    RealmResults<ToDoItem> dItems = realm.where(ToDoItem.class)
-                            .beginsWith("id",yesterdayIDhead)
-                            .equalTo("isDDay",true)
-                            .findAll();
-
-                    for (int i = 0; i < dItem.size(); i++) {
-                        if (dItem.isValid()) {
-                            dItem.get(i).deleteFromRealm();
-                        }
-                    }
-
-                    realm.close();
-                }
-                catch(Exception e){}
-
-            }
-        });
-    }
 
     public void setMode(int mode){
         this.mode = mode;

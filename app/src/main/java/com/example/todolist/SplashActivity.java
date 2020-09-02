@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-// TODO: 스플래시 화면 관련 코드 작성
 
 public class SplashActivity extends AppCompatActivity {
 

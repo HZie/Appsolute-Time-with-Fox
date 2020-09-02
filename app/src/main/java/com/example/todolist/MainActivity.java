@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +30,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Use Realm DB
     Realm realm;
+    private String yesterdayIDhead="";
+    boolean isDeletePrev = false;
+
 
     // Gamify 관련 변수
     public static Context mcontext;
@@ -98,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
         // TODO: 사막 background로 설정
         layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
 
+        // 어제까지의 할 일 및 디데이 리스트 데이터에서 삭제
+        Calendar c1 = new GregorianCalendar();
+        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+        yesterdayIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(c1.getTime());
+        android.util.Log.d("yesterdayIDhead: ", yesterdayIDhead);
 
         btnAdd = binding.btnAdd;
         btnAdd.setOnClickListener(new View.OnClickListener(){
@@ -161,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         tvDate = binding.tvDate;
+        tvDate.setText(new SimpleDateFormat("MM월 dd일 (E)", Locale.KOREAN).format(Calendar.getInstance().getTime()));
 
         btnOasis = binding.btnOasis;
         btnToOasis2 = binding.btnToOasis2;
@@ -228,8 +240,10 @@ public class MainActivity extends AppCompatActivity {
         todoFrag = new ToDoFragment();
         oasisFrag = new OasisFragment();
         oasiswinterFrag = new OasisWinterFragment();
+        btnDDay.setText(getDdayfromDB());
         currFrag = 0;
-        setFragment(0);
+        todoFrag.deletePrevData();
+
         currList = 0;
 
         // gamify 관련 코드
@@ -263,6 +277,8 @@ public class MainActivity extends AppCompatActivity {
         levelUp();
     }
 
+
+
     public void onBackPressed(){
         if(System.currentTimeMillis() > backKeyPressed + 2000){
             backKeyPressed = System.currentTimeMillis();
@@ -279,8 +295,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         btnDDay.setText(getDdayfromDB());
-
     }
+
 
     // 0: to do list, 1: d-day list, 2: oasis
     public void setFragment(int n){
@@ -322,11 +338,20 @@ public class MainActivity extends AppCompatActivity {
 
     public String getDdayfromDB(){
         ToDoItem item = null;
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        final Date todayStart = cal.getTime();
         try{
             realm = Realm.getDefaultInstance();
             item = realm.where(ToDoItem.class)
                     .equalTo("isDDay", true)
-                    .findFirst();
+                    .greaterThanOrEqualTo("date",todayStart)
+                    .findAllSorted("date").get(0);
             return item.getDueDate()+" - "+item.getContent();
         }
         catch(Exception e){}

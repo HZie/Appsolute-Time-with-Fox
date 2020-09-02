@@ -266,7 +266,8 @@ public class AddTodoActivity extends Activity{
 
     public boolean addToDoItem(){
         ToDoItem todo;
-        todoDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+        Date todoDate = Calendar.getInstance().getTime();
+        Log.d("addToDoItem - todoDate: ", String.valueOf(todoDate));
         todoContent = contentET.getText().toString();
 
         if(todoContent.compareTo("") == 0){
