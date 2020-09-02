@@ -320,9 +320,10 @@ public class MainActivity extends AppCompatActivity {
             item = realm.where(ToDoItem.class)
                     .equalTo("isDDay", true)
                     .findFirst();
+            return item.getDueDate()+" - "+item.getContent();
         }
         catch(Exception e){}
-        return item.getDueDate()+" - "+item.getContent();
+        return "To D-Day List";
     }
 
     // TODO: 여기부터 gamify 관련 코드 작성
