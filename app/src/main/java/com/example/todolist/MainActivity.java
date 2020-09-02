@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isDDay){
                     currFrag = 1;
                     setFragment(currFrag);
-                    btnDDay.setText("To to do list");
+                    btnDDay.setText("To To Do List");
                     if(isOasis) {
                         btnOasis.setText("To Oasis");
                         tvDate.setTextColor(getResources().getColor(R.color.blackText));
