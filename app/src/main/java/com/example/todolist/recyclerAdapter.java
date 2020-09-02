@@ -2,8 +2,6 @@ package com.example.todolist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +12,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
-public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapter.ViewHolder> {
+public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHolder> {
     private ArrayList<ToDoItem> mData = null;     // Todo라는 객체를 가진 ArrayList
     Realm realm;
     int checkedNum = 0;
     private Context mContext;
     int showMenuPos = -1;
+    private String yesterdayIDhead="";
+    int mode = 1;   // mode 1: to do fragment, mode 2: d-day fragment
 
     // item View를 저장하는 뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout itemLayout;
-        CheckBox itemCheckBox;
+        CheckBox todoItemCheckBox;
+        TextView ddayItemText;
         ImageView importantBt;
 
         LinearLayout menuLayout;
@@ -41,21 +46,28 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         public ViewHolder(final View itemView){   // itemView와 연결했기 때문에 findViewById 앞에 itemView를 명시한다.
             super(itemView);
 
-            itemCheckBox = itemView.findViewById(R.id.itemCheckbox);
-            this.importantBt = itemView.findViewById(R.id.importantBtn);
+            todoItemCheckBox = itemView.findViewById(R.id.todoCheckbox);
+            ddayItemText = itemView.findViewById(R.id.ddayTextView);
+            importantBt = itemView.findViewById(R.id.importantBtn);
             itemLayout = itemView.findViewById(R.id.main_item_layout);
             menuLayout = itemView.findViewById(R.id.item_menu_layout);
             editBtn = itemView.findViewById(R.id.editBtn);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
+            // 어제까지의 할 일 및 디데이 리스트 데이터에서 삭제
+            Calendar c1 = new GregorianCalendar();
+            c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+            yesterdayIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(c1.getTime());
+            deletePrevData();
+
 
             // 체크박스 리스너
-            itemCheckBox.setOnClickListener(new View.OnClickListener(){
+            todoItemCheckBox.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
                     int position = getAdapterPosition();    // 현재 어뎁터가 다루고 있는 리스트의 포지션을 가져온다.
                     if(position != RecyclerView.NO_POSITION){   // 삭제된 포지션이 아닌 경우
-                        changeChecked(mData.get(position).getId(),itemCheckBox.isChecked());
+                        changeChecked(mData.get(position).getId(),todoItemCheckBox.isChecked());
                         notifyDataSetChanged();     // 어뎁터에게 데이터 셋이 변경되었음을 알린다.
                     }
                 }
@@ -95,30 +107,45 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    ToDoRecyclerAdapter(ArrayList<ToDoItem> list, Context mContext){
+    recyclerAdapter(ArrayList<ToDoItem> list, Context mContext, int mode){
         mData = list;
         this.mContext = mContext;
+        this.mode = mode;
     }
+    recyclerAdapter(){}
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
-    public ToDoRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public recyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.item_todo_recycler, parent, false);
-        ToDoRecyclerAdapter.ViewHolder vh = new ToDoRecyclerAdapter.ViewHolder(view);
+        View view;
+        view = inflater.inflate(R.layout.item_recycler, parent, false);
+        recyclerAdapter.ViewHolder vh = new recyclerAdapter.ViewHolder(view);
         realm.getDefaultInstance();
 
         return vh;
     }
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
-    @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(ToDoRecyclerAdapter.ViewHolder holder, int position){
-        holder.itemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
-        holder.itemCheckBox.setChecked(mData.get(position).isChecked());
+    public void onBindViewHolder(recyclerAdapter.ViewHolder holder, int position){
+
+        Log.d("mode: ", String.valueOf(mode));
+
+        if(mode == 1){
+            holder.todoItemCheckBox.setVisibility(View.VISIBLE);
+            holder.ddayItemText.setVisibility(View.GONE);
+
+            holder.todoItemCheckBox.setText(mData.get(position).getContent());       // 직접적으로 binding 해주는 것
+            holder.todoItemCheckBox.setChecked(mData.get(position).isChecked());
+        }
+        if(mode == 2){
+            holder.ddayItemText.setVisibility(View.VISIBLE);
+            holder.todoItemCheckBox.setVisibility(View.GONE);
+
+            holder.ddayItemText.setText(mData.get(position).getDueDate()+": "+mData.get(position).getContent());
+        }
 
         if(position == showMenuPos){
             holder.itemLayout.setVisibility(View.GONE);
@@ -133,9 +160,9 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
             else
                 holder.importantBt.setVisibility(View.GONE);
             if(mData.get(position).isChecked())
-                holder.itemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
+                holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.checkedText));
             else
-                holder.itemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
+                holder.todoItemCheckBox.setTextColor(mContext.getResources().getColor(R.color.blackText));
         }
 
         setPercentage();
@@ -149,7 +176,6 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
     }
 
     public void changeChecked(String id, boolean isChecked){
-        Log.d("id: ",id);
         if(isChecked)
             checkedNum++;
         else
@@ -194,7 +220,6 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         int total, checked;
         total = getItemCount();
         checked = getCheckedNum();
-        Log.d("total. checked:",total+", " + checked);
         ((MainActivity)mContext).setPercent(total,checked);
     }
 
@@ -207,6 +232,47 @@ public class ToDoRecyclerAdapter extends RecyclerView.Adapter<ToDoRecyclerAdapte
         showMenuPos = -1;
         notifyDataSetChanged();
     }
+
+    public void deletePrevData(){
+        realm = Realm.getDefaultInstance();
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
+                            .beginsWith("id", yesterdayIDhead)
+                            .equalTo("isRepeat", false)
+                            .findAll();
+                    for (int i = 0; i < dItem.size(); i++) {
+                        if (dItem.isValid()) {
+                            dItem.get(i).deleteFromRealm();
+                        }
+                    }
+
+                    RealmResults<ToDoItem> dItems = realm.where(ToDoItem.class)
+                            .beginsWith("id",yesterdayIDhead)
+                            .equalTo("isDDay",true)
+                            .findAll();
+
+                    for (int i = 0; i < dItem.size(); i++) {
+                        if (dItem.isValid()) {
+                            dItem.get(i).deleteFromRealm();
+                        }
+                    }
+
+                    realm.close();
+                }
+                catch(Exception e){}
+
+            }
+        });
+    }
+
+    public void setMode(int mode){
+        this.mode = mode;
+    }
+
+    public int getMode(){ return this.mode; }
 
 
 }

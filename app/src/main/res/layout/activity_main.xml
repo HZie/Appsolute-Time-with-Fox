@@ -32,7 +32,11 @@
             android:layout_weight="1"
             android:background="@drawable/dday_button"
             android:text="To D-Day"
-            android:textColor="#B3000000"/>
+            android:textColor="#B3000000"
+            android:ellipsize="end"
+            android:ems="20"
+            android:maxLines="1"
+            android:textAllCaps="false"/>
 
         <FrameLayout
             android:layout_width="50dp"

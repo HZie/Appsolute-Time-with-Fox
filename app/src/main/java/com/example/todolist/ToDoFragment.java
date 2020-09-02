@@ -2,7 +2,6 @@ package com.example.todolist;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,10 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.example.todolist.databinding.ActivityMainBinding;
 import com.example.todolist.databinding.FragmentTodoBinding;
 
 import java.text.SimpleDateFormat;
@@ -30,12 +26,10 @@ import io.realm.RealmResults;
 // TODO: To Do List관련 코드 여기에 작성
 
 public class ToDoFragment extends Fragment {
-    Button insertButton;
-    EditText todoEdit;
+
     private ArrayList<ToDoItem> todoArrayList;
-    private ToDoRecyclerAdapter todoAdapter;
-    Date curr;
-    String date;
+    private recyclerAdapter todoAdapter;
+    RecyclerView recyclerView;
 
     FragmentTodoBinding binding;
     Realm realm;
@@ -47,16 +41,17 @@ public class ToDoFragment extends Fragment {
         binding = FragmentTodoBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         return view;
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        RecyclerView recyclerView = binding.todoRecyclerView;
+        recyclerView = binding.todoRecyclerView;
         todoArrayList = new ArrayList<>();
         LinearLayoutManager todoLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(todoLayoutManager);
-        todoAdapter = new ToDoRecyclerAdapter(todoArrayList, getContext());   //어뎁터 안에 array list 넣기
+        todoAdapter = new recyclerAdapter(todoArrayList, getContext(), 1);   //어뎁터 안에 array list 넣기
         recyclerView.setAdapter(todoAdapter);                   // 어뎁터 셋팅
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -126,9 +121,9 @@ public class ToDoFragment extends Fragment {
                }
 
                final RealmResults<ToDoItem> repeatItem = realm.where(ToDoItem.class)
-                                                                .like("repeatDate",queryVal)
-                                                                .equalTo("isDDay",false)
-                                                                .findAll();
+                       .equalTo("isRepeat",true)
+                       .like("repeatDate",queryVal)
+                       .findAll();
                for(int i = 0; i < repeatItem.size(); i++){
                    todoArrayList.add(repeatItem.get(i));
 
@@ -137,6 +132,7 @@ public class ToDoFragment extends Fragment {
                    }
                }
                todoAdapter.setCheckedNum(checkedNum);
+               todoAdapter.notifyDataSetChanged();
            }
            catch(Exception e){
                Log.e("error at getDataFromDB: ",String.valueOf(e));

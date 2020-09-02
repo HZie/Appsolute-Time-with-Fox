@@ -46,7 +46,6 @@ public class AddTodoActivity extends Activity{
     LinearLayout ddayLayout;
 
     private String todoIDhead="";
-    private String yesterdayIDhead="";
     private String todoID;
     private String todoDate;
     private String todoContent;
@@ -59,6 +58,7 @@ public class AddTodoActivity extends Activity{
 
     Realm realm;
     int mode;
+    int currFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,7 @@ public class AddTodoActivity extends Activity{
         setContentView(view);
         Intent intent = getIntent();
         mode = intent.getIntExtra("mode",0);
+        currFrag = intent.getIntExtra("fragment",-1);
 
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
@@ -119,10 +120,7 @@ public class AddTodoActivity extends Activity{
 
         dueDP.setOnDateChangedListener(dpListener);
         todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
-        Calendar c1 = new GregorianCalendar();
-        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
-        yesterdayIDhead = new SimpleDateFormat("yyyyMMdd",Locale.getDefault()).format(c1.getTime());
-        deletePrevData();
+
 
         switch(mode){
             case 1:
@@ -147,15 +145,14 @@ public class AddTodoActivity extends Activity{
                 case R.id.editBtn:
                     // ToDo: edit button 관련 메소드
                     if(editToDoItem(editId)){
-                        ToDoFragment tdf = new ToDoFragment();
-                        tdf.onResume();
+                        ((MainActivity)MainActivity.mcontext).setFragment(currFrag);
                         finish();
                     }
                     break;
                 case R.id.saveBtn:
                     if(addToDoItem()){
-                        ToDoFragment tdf = new ToDoFragment();
-                        tdf.onResume();
+
+                        ((MainActivity)MainActivity.mcontext).setFragment(currFrag);
                         finish();
                     }
                     break;
@@ -424,28 +421,6 @@ public class AddTodoActivity extends Activity{
         }
     }
 
-    public void deletePrevData(){
-        realm = Realm.getDefaultInstance();
-        realm.executeTransactionAsync(new Realm.Transaction(){
-            @Override
-            public void execute(Realm realm) {
-                try {
-                    RealmResults<ToDoItem> dItem = realm.where(ToDoItem.class)
-                            .beginsWith("id", yesterdayIDhead)
-                            .equalTo("isRepeat", false)
-                            .findAll();
-                    for (int i = 0; i < dItem.size(); i++) {
-                        if (dItem.isValid()) {
-                            dItem.get(i).deleteFromRealm();
-                        }
-                    }
-                    realm.close();
-                }
-                catch(Exception e){}
-
-            }
-        });
-    }
 
 
 

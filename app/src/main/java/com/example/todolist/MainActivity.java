@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentManager fm;
     FragmentTransaction ftran;
+    int currFrag = 1;
 
     boolean isDDay = false;
     boolean isOasis = false;
@@ -91,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Realm DB 사용을 위한 초기화
         Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
-
         layoutBackground = binding.layoutBackground;
 
         // TODO: 사막 background로 설정
@@ -108,17 +108,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnDDay = binding.btnDDay;
-        btnDDay.setText("To D-Day List");
+        btnDDay.setText(getDdayfromDB());
         isDDay = false;
         btnDDay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 if(!isDDay){
-                    setFragment(1);
-                    currList = 1;
+                    currFrag = 1;
+                    setFragment(currFrag);
                     btnDDay.setText("To to do list");
                     if(isOasis) {
                         btnOasis.setText("To Oasis");
+                        tvDate.setTextColor(getResources().getColor(R.color.blackText));
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
                         btnToOasis2.setVisibility(View.GONE);
@@ -128,11 +129,12 @@ public class MainActivity extends AppCompatActivity {
                     isDDay = true;
                 }
                 else{
-                    setFragment(0);
-                    currList = 0;
-                    btnDDay.setText("To D-Day List");
+                    currFrag = 0;
+                    setFragment(currFrag);
+                    btnDDay.setText(getDdayfromDB());
                     if(isOasis) {
                         btnOasis.setText("To Oasis");
+                        tvDate.setTextColor(getResources().getColor(R.color.blackText));
                         btnOasis.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.airplane_oasis_go));
                         isOasis = false;
                         btnToOasis2.setVisibility(View.GONE);
@@ -146,8 +148,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        switchShowDDay = binding.switchShowDDay;
+        switchShowDDay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(switchShowDDay.isChecked())
+                    btnDDay.setVisibility(View.INVISIBLE);
+                else
+                    btnDDay.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         tvDate = binding.tvDate;
-        tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
 
         btnOasis = binding.btnOasis;
         btnToOasis2 = binding.btnToOasis2;
@@ -165,7 +178,10 @@ public class MainActivity extends AppCompatActivity {
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.oasis_background));
                     btnToOasis2.setVisibility(View.VISIBLE);
                     tvDate.setTextColor(getResources().getColor(R.color.whiteText));
-                    setFragment(2);
+                    isDDay = false;
+                    btnDDay.setText("To D-Day List");
+                    currFrag = 2;
+                    setFragment(currFrag);
                 }
                 else{
                     // TODO: 사막 background로 전환
@@ -176,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.GONE);
                     tvDate.setTextColor(getResources().getColor(R.color.blackText));
-                    setFragment(currList);
+                    currFrag = 0;
+                    setFragment(currFrag);
                 }
 
             }
@@ -186,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isOasis) {
-                    setFragment(3);
+                    currFrag = 3;
+                    setFragment(currFrag);
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.VISIBLE);
                 }
@@ -197,7 +215,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isOasis) {
-                    setFragment(2);
+                    currFrag = 2;
+                    setFragment(currFrag);
                     btnToOasis1.setVisibility(View.GONE);
                     btnToOasis2.setVisibility(View.VISIBLE);
                 }
@@ -263,15 +282,19 @@ public class MainActivity extends AppCompatActivity {
 
         switch(n){
             case 0:
+                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, todoFrag);
                 break;
             case 1:
+                tvDate.setText("D-Day List");
                 ftran.replace(R.id.listFragment, d_dayFrag);
                 break;
             case 2:
+                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasisFrag);
                 break;
             case 3:
+                tvDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasiswinterFrag);
                 break;
             default:
@@ -285,8 +308,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, AddTodoActivity.class);
         // mode가 1일 경우 추가
         intent.putExtra("mode",mode);
+        intent.putExtra("fragment", currFrag);
         intent.putExtra("itemID", id);
         startActivityForResult(intent,1);
+    }
+
+    public String getDdayfromDB(){
+        ToDoItem item = null;
+        try{
+            realm = Realm.getDefaultInstance();
+            item = realm.where(ToDoItem.class)
+                    .equalTo("isDDay", true)
+                    .findFirst();
+        }
+        catch(Exception e){}
+        return item.getDueDate()+" - "+item.getContent();
     }
 
     // TODO: 여기부터 gamify 관련 코드 작성
