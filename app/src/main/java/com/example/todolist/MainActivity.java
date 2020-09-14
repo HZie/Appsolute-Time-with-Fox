@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnOasis;
     Button btnToOasis2;
     Button btnToOasis1;
+    ImageButton btnHelp;
     ConstraintLayout layoutBackground;
     TextView tvDate;
 
@@ -246,6 +247,15 @@ public class MainActivity extends AppCompatActivity {
         todoFrag.deletePrevData();
         currList = 0;
 
+        btnHelp = binding.btnHelp;
+        btnHelp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                goHelpActivity();
+            }
+        });
+
+
         // gamify 관련 코드
         //TODO: 할일 하나 완료시마다 메인화면 속 여우의 대사(TextView hi)를 -->@string/udidit으로 바꾸고 말풍선 보여주기
         final ImageView wordbox = binding.wordBox;
@@ -333,6 +343,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("mode",mode);
         intent.putExtra("fragment", currFrag);
         intent.putExtra("itemID", id);
+        startActivityForResult(intent,1);
+    }
+
+    public void goHelpActivity(){
+        Intent intent = new Intent(MainActivity.this, HelpActivity.class);
         startActivityForResult(intent,1);
     }
 
