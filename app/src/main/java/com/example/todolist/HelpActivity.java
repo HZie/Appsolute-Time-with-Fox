@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.todolist.databinding.ActivityAddTodoBinding;
 import com.example.todolist.databinding.ActivityHelpBinding;
@@ -18,6 +20,8 @@ public class HelpActivity extends Activity {
 
     ActivityHelpBinding binding;
     ImageButton closeBtn;
+    TextView helpTxt;
+    String helpStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,5 +41,16 @@ public class HelpActivity extends Activity {
                 finish();
             }
         });
+
+        setHelpText();
+        helpTxt = binding.helpText;
+        helpTxt.setText(helpStr);
+        helpTxt.setMovementMethod(new ScrollingMovementMethod());
+    }
+
+
+    // 여기에 도움말 텍스트 작성
+    void setHelpText(){
+        helpStr = "여기에 도움말 텍스트가 갑니다";
     }
 }
