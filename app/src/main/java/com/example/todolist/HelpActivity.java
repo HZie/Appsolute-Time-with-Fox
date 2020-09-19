@@ -51,7 +51,7 @@ public class HelpActivity extends Activity {
 
     // 여기에 도움말 텍스트 작성
     void setHelpText(){
-        helpStr = ("<To Do List>\n" +
+        helpStr = ("1)To Do List\n" +
                 "\n" +
                 "[할 일 추가는 어떻게 하나요?]\n" +
                 "하단 오른쪽에 있는 + 버튼을 누르면 할 일을 추가할 수 있는 팝업이 생깁니다.\n" +
@@ -67,7 +67,7 @@ public class HelpActivity extends Activity {
                 "할 일을 완료하면 항목 옆에 있는 체크박스를 누르면 됩니다. 누르면 체크표시가 생성되면서 글씨색이 바뀝니다.\n" +
                 "\n" +
                 "\n" +
-                "<D-Day List>\n" +
+                "2)D-Day List\n" +
                 "\n" +
                 "[D-Day List 화면으로 어떻게 가나요?]\n" +
                 "화면 가운데 상단에 D-Day 항목 중 하나가 띄워집니다. 이 D-Day 버튼을 클릭하면 To Do List와 D-Day List의 전환이 이루어집니다.\n" +
@@ -85,7 +85,7 @@ public class HelpActivity extends Activity {
                 "왼쪽 상단, D-Day 버튼 왼쪽에 위치한 스위치를 누르면 D-Day 버튼을 hide/show할 수 있습니다.\n" +
                 "\n" +
                 "\n" +
-                "<여우키우기>\n" +
+                "3)여우키우기\n" +
                 "\n" +
                 "[TODO앱에서 여우를 왜 키우는건가요?]\n" +
                 "여우를 키우는것은 유저의 일주일간 TODO 달성도를 알려주는 일종의 척도입니다.\n" +
@@ -95,8 +95,8 @@ public class HelpActivity extends Activity {
                 "여우와의 약속을 지키며 여우와 친밀도를 차곡차곡 쌓아보는게 어떨까요?\n" +
                 "\n" +
                 "[여우옆에있는 바하고 레벨은 무엇인가요?]\n" +
-                "(바 사진) > 오늘 투두리스트의 달성도를 나타내는 바입니다.\n" +
-                "(레벨 사진) > 일주일안에서 총 며칠간 할일의 70%를 달성했는지를 나타내는 레벨입니다. ex) 3LV = 일주일중 3일간 70%달성\n" +
+                "바 > 오늘 투두리스트의 달성도를 나타내는 바입니다.\n" +
+                "레벨 > 일주일안에서 총 며칠간 할일의 70%를 달성했는지를 나타내는 레벨입니다.\n" + "ex) 3LV = 일주일중 3일간 70%달성\n" +
                 "\n" +
                 "[오아시스는 무엇인가요?]\n" +
                 "오아시스는 수많은모습의 여우를 모으는 도감이자 유저의 성실함을 보여주는 트로피입니다.\n" +
@@ -108,7 +108,7 @@ public class HelpActivity extends Activity {
                 "\n" +
                 "\n" +
                 "\n" +
-                "<To Do List>\n" +
+                "4)To Do List\n" +
                 "할 일 추가\n" +
                 "+ 버튼을 누르면 할 일을 추가할 수 있는 팝업이 생깁니다.\n" +
                 "원하는 옵션(중요, 반복, 디데이)을 선택하면 해당 옵션의 세부 설정이 생깁니다.\n" +
