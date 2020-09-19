@@ -553,7 +553,6 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(foxLog[0]<70) {
                 Toast.makeText(this, "70%달성 실패", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "저번 달성률: "+ foxLog[0], Toast.LENGTH_SHORT).show();
                 levelView(foxLog[1]);
             }
             editor.putString("Date", getdate()); editor.putInt("Percent", 0);
@@ -562,8 +561,6 @@ public class MainActivity extends AppCompatActivity {
             isNextWeek(); //다음주가 됐거나 지났는지(새 여우 지급용 함수)
         }
         else {
-            Toast.makeText(this, "오늘방문", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "마지막로그: "+ logDate, Toast.LENGTH_LONG).show();
             levelView(foxLog[1]);
             int percent = Log.getInt("Percent", 0);
             percentView(percent);
@@ -591,8 +588,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(cal.before(cur)) { //만약 여우 받은 주가 이미 지났다면 (여우 받은 주의 다음주 월요일 이후 날짜라면)
             if(Log.getInt("Level", 0)>=7) { //레벨 7
-                Toast.makeText(this, "여우와 약속 지키기 성공!", Toast.LENGTH_LONG).show();
-                Toast.makeText(this, "여우와 친구가 됐어요!", Toast.LENGTH_LONG).show();
                 for(int i = 0;  i<imageResources.length; i++) {
                     if(i==Log.getInt("Fox", 1)) setFoxLog(i);
                 }
