@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="310dp"
+    android:width="284dp"
     android:height="516dp"
     android:viewportWidth="284"
     android:viewportHeight="516"
@@ -11,11 +10,16 @@
     <group>
 
         <clip-path
-            android:pathData="M10 0H274C279.523 0 284 4.47715 284 10V506C284 511.523 279.523 516 274 516H10C4.47715 516 0 511.523 0 506V10C0 4.47715 4.47715 0 10 0Z"
+            android:pathData="M20 0H264C275.046 0 284 8.95431 284 20V496C284 507.046 275.046 516 264 516H20C8.95431 516 0 507.046 0 496V20C0 8.95431 8.95431 0 20 0Z"
             />
 
         <path
-            android:pathData="M10 0H274C279.523 0 284 4.47715 284 10V506C284 511.523 279.523 516 274 516H10C4.47715 516 0 511.523 0 506V10C0 4.47715 4.47715 0 10 0Z"
+            android:pathData="M0 0V516H284V0"
+            android:fillColor="#CC000000"
+            />
+
+        <path
+            android:pathData="M20 0H264C275.046 0 284 8.95431 284 20V496C284 507.046 275.046 516 264 516H20C8.95431 516 0 507.046 0 496V20C0 8.95431 8.95431 0 20 0Z"
             android:strokeWidth="3"
             android:strokeColor="@color/weekBtnChecked"
             />
@@ -23,4 +27,3 @@
     </group>
 
 </vector>
-
