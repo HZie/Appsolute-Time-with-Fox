@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.appsolute.todolist;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.example.todolist.R;
 import com.example.todolist.databinding.FragmentOasiswinterBinding;
 
 public class OasisWinterFragment extends Fragment {

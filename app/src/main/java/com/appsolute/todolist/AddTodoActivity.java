@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.appsolute.todolist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,17 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.todolist.R;
 import com.example.todolist.databinding.ActivityAddTodoBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 

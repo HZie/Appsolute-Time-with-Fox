@@ -1,19 +1,17 @@
-package com.example.todolist;
+package com.appsolute.todolist;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
+import com.example.todolist.R;
 import com.example.todolist.databinding.FragmentOasisBinding;
-import com.example.todolist.databinding.FragmentTodoBinding;
 
 
 public class OasisFragment extends Fragment {

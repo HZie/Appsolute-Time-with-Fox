@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.appsolute.todolist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import com.example.todolist.R;
 
 public class GetfoxActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.appsolute.todolist;
 
 import android.os.Bundle;
 
@@ -14,12 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.todolist.databinding.FragmentDDayBinding;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

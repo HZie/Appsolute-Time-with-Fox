@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00838383"
-    tools:context=".ToDoFragment">
+    tools:context="com.appsolute.todolist.ToDoFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

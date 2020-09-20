@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".HelpActivity"
+        <activity android:name="com.appsolute.todolist.HelpActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".AddTodoActivity"
+            android:name="com.appsolute.todolist.AddTodoActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SplashActivity"
+        <activity android:name="com.appsolute.todolist.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.appsolute.todolist.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".NewfoxActivity"
+        <activity android:name="com.appsolute.todolist.NewfoxActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".GetfoxActivity"
+        <activity android:name="com.appsolute.todolist.GetfoxActivity"
             android:screenOrientation="portrait"/>
 
 
