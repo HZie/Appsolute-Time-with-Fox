@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnHelp;
     ConstraintLayout layoutBackground;
     TextView tvDate;
+    ImageView heart;
+    TextView prgper;
 
     DDayFragment d_dayFrag;
     ToDoFragment todoFrag;
@@ -117,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         isDDay = false;
+        
+        heart = binding.heart;
+        prgper = binding.percent;
+        prgbar = binding.loveprg;
 
         btnDDay = binding.btnDDay;
         btnDDay.setOnClickListener(new View.OnClickListener(){
@@ -126,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     currFrag = 1;
                     setFragment(currFrag);
                     btnDDay.setText("To To Do List");
+                    prgbar.setVisibility(View.INVISIBLE);
+                    heart.setVisibility(View.INVISIBLE);
+                    prgper.setVisibility(View.INVISIBLE);
                     if(isOasis) {
                         btnOasis.setText("To Oasis");
                         tvDate.setTextColor(getResources().getColor(R.color.blackText));
@@ -141,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
                     currFrag = 0;
                     setFragment(currFrag);
                     btnDDay.setText(getDdayfromDB());
+                    prgbar.setVisibility(View.VISIBLE);
+                    heart.setVisibility(View.VISIBLE);
+                    prgper.setVisibility(View.VISIBLE);
                     if(isOasis) {
                         btnOasis.setText("To Oasis");
                         tvDate.setTextColor(getResources().getColor(R.color.blackText));
@@ -201,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
                     layoutBackground.setBackground(ContextCompat.getDrawable(mcontext, R.drawable.dday_background));
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.GONE);
+                    prgbar.setVisibility(View.VISIBLE);
+                    heart.setVisibility(View.VISIBLE);
+                    prgper.setVisibility(View.VISIBLE);
                     tvDate.setTextColor(getResources().getColor(R.color.blackText));
                     btnDDay.setText(getDdayfromDB());
                     currFrag = 0;
