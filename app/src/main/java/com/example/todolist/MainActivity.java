@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     btnToOasis2.setVisibility(View.VISIBLE);
                     tvDate.setTextColor(getResources().getColor(R.color.whiteText));
                     isDDay = false;
-                    btnDDay.setText("To D-Day List");
+                    btnDDay.setText(getDdayfromDB());
                     currFrag = 2;
                     setFragment(currFrag);
                 }
@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     btnToOasis2.setVisibility(View.GONE);
                     btnToOasis1.setVisibility(View.GONE);
                     tvDate.setTextColor(getResources().getColor(R.color.blackText));
+                    btnDDay.setText(getDdayfromDB());
                     currFrag = 0;
                     setFragment(currFrag);
                 }
