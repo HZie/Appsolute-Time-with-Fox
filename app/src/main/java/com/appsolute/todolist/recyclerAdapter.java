@@ -120,7 +120,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    recyclerAdapter(ArrayList<ToDoItem> list, Context mContext, int mode){
+    public recyclerAdapter(ArrayList<ToDoItem> list, Context mContext, int mode){
         mData = list;
         this.mContext = mContext;
         this.mode = mode;
