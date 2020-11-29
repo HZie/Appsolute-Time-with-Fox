@@ -44,7 +44,7 @@
         android:background="@drawable/fox"
         app:layout_constraintBottom_toTopOf="@+id/endfox_ground2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -55,7 +55,7 @@
         android:contentDescription="@string/wordBox"
         app:layout_constraintBottom_toTopOf="@+id/endfox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -66,7 +66,7 @@
         android:fontFamily="@font/baekboam_normalfont"
         android:text="@string/get1"
         android:textAlignment="center"
-        android:textColor="#B3000000"
+        android:textColor="#CC000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/wordBox"

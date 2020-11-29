@@ -123,6 +123,9 @@ public class AddTodoActivity extends Activity{
         dueDP.setOnDateChangedListener(dpListener);
         dueDP.updateDate(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         dpTextView.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
+        //TODO: 오늘까지인 디데이 추가시에 스피너 조작을 안한채로 그대로 추가하게 되는데(스피너 처음값이 오늘이니까)
+        //TODO: 이렇게 하면 날짜가 null로 뜨길래 처음에 오늘값을 todoDueDate에 초기값으로 줌
+        todoDueDate = new SimpleDateFormat("MM/dd", Locale.KOREAN).format(Calendar.getInstance().getTime());
         todoIDhead = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().getTime());
 
 
@@ -186,7 +189,8 @@ public class AddTodoActivity extends Activity{
     DatePicker.OnDateChangedListener dpListener = new DatePicker.OnDateChangedListener(){
         @Override
         public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일",Locale.KOREAN);
+            //TODO: 바꾼 부분
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd",Locale.KOREAN);
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, year);
             cal.set(Calendar.MONTH, month);

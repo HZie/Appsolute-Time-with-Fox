@@ -173,9 +173,11 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/listFragment">
 
-        <FrameLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
             <ProgressBar
                 android:id="@+id/loveprg"
@@ -183,11 +185,12 @@
                 android:layout_width="120dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="1dp"
-                android:layout_marginStart="23dp"
+                android:layout_marginLeft="10dp"
                 android:max="100"
                 android:progress="0"
                 android:progressDrawable="@drawable/love_bar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -198,18 +201,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginRight="10dp"
                 android:text="0"
                 android:textColor="#B3000000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/heart"
                 android:layout_width="45dp"
                 android:layout_height="55dp"
                 android:background="@drawable/heart2"
-                android:contentDescription="@string/wordBox" />
+                android:contentDescription="@string/wordBox"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
 
         </FrameLayout>
 
@@ -221,7 +236,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="1dp"
             android:textStyle="bold"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/levelText"
             android:textColor="#B3000000" />
 

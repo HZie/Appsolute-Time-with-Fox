@@ -15,7 +15,7 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:numbersInnerTextColor">@color/colorPrimary</item>
-        <item name="android:colorControlNormal">@color/colorAccent</item>
+        <item name="android:colorControlNormal">@color/weekBtnChecked</item>
     </style>
 
 

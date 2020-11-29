@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch(n){
             case 0:
-                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("MM월 dd일 (E)", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, todoFrag);
                 break;
             case 1:
@@ -297,11 +297,11 @@ public class MainActivity extends AppCompatActivity {
                 ftran.replace(R.id.listFragment, d_dayFrag);
                 break;
             case 2:
-                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("MM월 dd일 (E)", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasisFrag);
                 break;
             case 3:
-                tvDate.setText(new SimpleDateFormat("yyyy년 MM월 dd일 E요일", Locale.KOREAN).format(Calendar.getInstance().getTime()));
+                tvDate.setText(new SimpleDateFormat("MM월 dd일 (E)", Locale.KOREAN).format(Calendar.getInstance().getTime()));
                 ftran.replace(R.id.listFragment, oasiswinterFrag);
                 break;
             default:
@@ -378,6 +378,14 @@ public class MainActivity extends AppCompatActivity {
         wordbox.setVisibility(View.VISIBLE);
         hi.setText(R.string.thx);
         hi.setVisibility(View.VISIBLE);
+
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable()  {
+            public void run() {
+                wordbox.setVisibility(View.INVISIBLE);
+                hi.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
     }
 
     public int[] getLog() {
@@ -497,9 +505,9 @@ public class MainActivity extends AppCompatActivity {
         else if(log.before(cur)) {
             if(foxLog[0]>=70) {
                 if (foxLog[1] < 7) {
-                    int levelDiff = foxLog[1]++;
-                    editor.putInt("Level", levelDiff);
-                    levelupView(levelDiff);
+                    foxLog[1]++;
+                    editor.putInt("Level", foxLog[1]); editor.commit();
+                    levelupView(foxLog[1]);
                 } else Toast.makeText(this, "이미 길들이기 LV.7달성!", Toast.LENGTH_LONG).show();
                 levelView(foxLog[1]);
             }
@@ -508,7 +516,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "저번 달성률: "+ foxLog[0], Toast.LENGTH_SHORT).show();
                 levelView(foxLog[1]);
             }
-            editor.putInt("Finish", 0); editor.putString("Date", getdate()); editor.putInt("Percent", 0);
+            editor.putString("Date", getdate()); editor.putInt("Percent", 0);
             editor.commit();
             percentView(Log.getInt("Percent", 0));
             isNextWeek(); //다음주가 됐거나 지났는지(새 여우 지급용 함수)
@@ -546,15 +554,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "여우와 약속 지키기 성공!", Toast.LENGTH_LONG).show();
                 Toast.makeText(this, "여우와 친구가 됐어요!", Toast.LENGTH_LONG).show();
                 for(int i = 0;  i<imageResources.length; i++) {
-                    if(imageResources[i]==Log.getInt("Fox", imageResources[1])) setFoxLog(i);
+                    if(i==Log.getInt("Fox", 1)) setFoxLog(i);
                 }
                 isFoxGet = true;
             }
             else isFoxGet = false; //레벨 7 아닌경우
+
             editor.putString("FoxDate", getMonday()); editor.commit();
             int lastFox = Log.getInt("Fox", 1);
             getNewFox(foxImage, false, lastFox);
             leaveFox(lastFox);
+
+            editor.putInt("Level", 0); editor.commit();
+            levelView(Log.getInt("Level", 0));
         }
 
     }

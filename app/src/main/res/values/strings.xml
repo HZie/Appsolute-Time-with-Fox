@@ -28,7 +28,7 @@
 
     <string name="newfox">새로운 여우가 놀러왔어요!</string>
     <string name="suggestion">여우는 당신과\n일주일동안 함께 지낼거에요</string>
-    <string name="suggestion2">할일완료도에 따라\n여우와의 관계는 달라질거에요!</string>
+    <string name="suggestion2">할일완료도에 따라\n당신과 여우와의 관계는 달라질거에요</string>
     <string name="suggestion3">그럼, 여우와의 약속을\n지키러가볼까요?</string>
     <string name="suggestion4">일주일동안 잘부탁해 :)</string>
     <string name="endmessage">터치하세요</string>
@@ -36,11 +36,11 @@
     <string name="getfox">여우와 함께한\n일주일이 지나갔습니다</string>
     <string name="getmessage">여우는\n오아시스에 남았습니다</string>
     <string name="failmessage">여우는 떠나갔습니다</string>
-    <string name="get1">나와의 약속을 항상 지켜줘서\n너무고마워</string>
-    <string name="get2">앞으로 너와함께\n오아시스에서 놀고싶어졌어!</string>
+    <string name="get1">나와의 약속을 항상 지켜줘서\n너무 고마웠어</string>
+    <string name="get2">너와 함께 계속 놀고 싶어져서\n 오아시스에 남기로 했어</string>
     <string name="get3">내가 보고싶어지면\n오아시스로 놀러와 :)</string>
     <string name="fail1">너와 자주 놀지 못해서\n아쉬웠어</string>
-    <string name="fail2">하지만 이제\n떠날 때가 온 것 같아</string>
+    <string name="fail2">여기 남아 너와 놀고싶지만\n이제 떠날 때가 온 것 같아</string>
     <string name="fail3">그립겠지만...\n안녕 :)</string>
 
 

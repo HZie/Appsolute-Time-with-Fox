@@ -47,7 +47,7 @@ public class GetfoxActivity extends AppCompatActivity {
         foxword = findViewById(R.id.foxword);
         narrator = findViewById(R.id.endfox_text);
         message = findViewById(R.id.endmessage);
-        endfox.setBackground(ContextCompat.getDrawable(mcontext, imageResources[1]));
+        endfox.setBackground(ContextCompat.getDrawable(mcontext, imageResources[data]));
 
         ConstraintLayout popup = (ConstraintLayout) findViewById(R.id.popup);
         if(get == false) {
